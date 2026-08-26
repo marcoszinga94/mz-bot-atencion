@@ -47,7 +47,7 @@ src/bot.ts (grammY) — handlers
                      │  embed pregunta (Transformers.js)
                      │  similitud coseno vs knowledge/index.json → top-k=4
                      ▼
-              src/zen.ts → POST https://opencode.ai/zen/v1/chat/completions
+              src/zen.ts → POST https://opencode.ai/zen/go/v1/chat/completions
                      │  (modelo deepseek-v4-flash, temp ~0.4)
                      ▼
               reply (bot.api.sendMessage)
@@ -61,7 +61,7 @@ src/bot.ts (grammY) — handlers
 - `src/rag.ts` — carga `knowledge/index.json`, embeddea la pregunta con
   Transformers.js, calcula similitud coseno y devuelve los top-k chunks.
 - `src/zen.ts` — cliente OpenAI-compatible hacia la API de Zen
-  (`https://opencode.ai/zen/v1/chat/completions`). Solo se envía
+  (`https://opencode.ai/zen/go/v1/chat/completions`). Solo se envía
   `messages` (system + context + pregunta). `max_tokens` razonable.
 - `src/knowledge.ts` — carga de los archivos markdown de `knowledge/`.
 - `src/config.ts` — lee y valida env vars.

@@ -23,7 +23,7 @@ describe("complete", () => {
     expect(text).toBe("Hola");
 
     expect(fetchMock).toHaveBeenCalledWith(
-      "https://opencode.ai/zen/v1/chat/completions",
+      "https://opencode.ai/zen/go/v1/chat/completions",
       expect.objectContaining({
         method: "POST",
         headers: expect.objectContaining({

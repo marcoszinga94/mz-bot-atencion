@@ -1,7 +1,7 @@
 import { getConfig } from "./config.js";
 import type { ChatMessage } from "./types.js";
 
-const API_URL = "https://opencode.ai/zen/v1/chat/completions";
+const API_URL = "https://opencode.ai/zen/go/v1/chat/completions";
 
 export async function complete(messages: ChatMessage[]): Promise<string> {
   const config = getConfig();
