@@ -6,7 +6,7 @@ Marcos se vende eficiencia y confianza, no solo diseño. Combina desarrollo web 
 
 ## Sectores donde trabaja
 
-- Sector agropecuario: webs corporativas para productores, acopios, veterinarias y empresas de servicios agrícolas. Caso destacado: El Socorro.
+- Sector agropecuario: webs corporativas para productores, acopios, veterinarias y empresas de servicios agrícolas.
 - Comercios locales y PyMEs: tiendas online para vender en toda la región, con pasarelas de pago como Mercado Pago.
 - Instituciones educativas y emprendedores.
 
