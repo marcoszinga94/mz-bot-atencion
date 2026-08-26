@@ -1,6 +1,8 @@
-import { pipeline } from "@huggingface/transformers";
+import { env, pipeline } from "@huggingface/transformers";
 import type { Chunk, Index } from "./types";
 import rawIndex from "../knowledge/index.json";
+
+env.cacheDir = "/tmp/transformers";
 
 const MODEL = "Xenova/paraphrase-multilingual-MiniLM-L12-v2";
 

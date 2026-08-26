@@ -8,6 +8,7 @@ export async function complete(messages: ChatMessage[]): Promise<string> {
 
   const res = await fetch(API_URL, {
     method: "POST",
+    signal: AbortSignal.timeout(25000),
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${config.zenApiKey}`,
