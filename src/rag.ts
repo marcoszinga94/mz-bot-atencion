@@ -7,7 +7,7 @@ const MODEL = "Xenova/paraphrase-multilingual-MiniLM-L12-v2";
 let extractorPromise: ReturnType<typeof pipeline<"feature-extraction">> | null = null;
 
 function getExtractor() {
-  extractorPromise ??= pipeline("feature-extraction", MODEL);
+  extractorPromise ??= pipeline("feature-extraction", MODEL, { dtype: "q8" });
   return extractorPromise;
 }
 

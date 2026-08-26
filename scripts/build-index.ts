@@ -13,7 +13,7 @@ function chunkMarkdown(content: string): string[] {
     .filter((section) => section.length > 0);
 }
 
-const extractor = await pipeline("feature-extraction", MODEL);
+const extractor = await pipeline("feature-extraction", MODEL, { dtype: "q8" });
 
 const files = (await readdir(KNOWLEDGE_DIR)).filter((f) => f.endsWith(".md"));
 
