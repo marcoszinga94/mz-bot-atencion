@@ -3,6 +3,19 @@ export interface Config {
   zenApiKey: string;
   zenModel: string;
   webhookSecret: string;
+  assistantName?: string;
+  assistantDescription?: string;
+  assistantContact?: string;
+  adminIds: number[];
+  blobToken?: string;
+}
+
+function parseAdminIds(value: string | undefined): number[] {
+  if (!value) return [];
+  return value
+    .split(",")
+    .map((part) => Number(part.trim()))
+    .filter((n) => Number.isFinite(n) && n > 0);
 }
 
 export function loadConfig(env: Record<string, string | undefined>): Config {
@@ -17,6 +30,11 @@ export function loadConfig(env: Record<string, string | undefined>): Config {
     zenApiKey,
     zenModel: env.ZEN_MODEL ?? "deepseek-v4-flash",
     webhookSecret,
+    assistantName: env.ASISTENTE_NOMBRE || undefined,
+    assistantDescription: env.ASISTENTE_DESCRIPCION || undefined,
+    assistantContact: env.ASISTENTE_CONTACTO || undefined,
+    adminIds: parseAdminIds(env.ADMIN_IDS),
+    blobToken: env.BLOB_READ_WRITE_TOKEN || undefined,
   };
 }
 

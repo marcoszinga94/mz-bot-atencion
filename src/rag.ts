@@ -1,6 +1,5 @@
 import { env, pipeline } from "@huggingface/transformers";
-import type { Chunk, Index } from "./types.js";
-import rawIndex from "../knowledge/index.json" with { type: "json" };
+import type { Chunk, KnowledgeEntry } from "./types.js";
 
 env.cacheDir = "/tmp/transformers";
 
@@ -25,14 +24,17 @@ export function cosine(a: number[], b: number[]): number {
   return sum;
 }
 
-export function retrieve(index: Index, queryVec: number[], k = 4): Chunk[] {
-  return index.chunks
-    .map((chunk, i) => ({ chunk, score: cosine(index.embeddings[i], queryVec) }))
+export function retrieve(
+  entries: KnowledgeEntry[],
+  queryVec: number[],
+  k = 4,
+): Chunk[] {
+  return entries
+    .map((entry) => ({
+      chunk: { id: 0, source: entry.source, text: entry.text } as Chunk,
+      score: cosine(entry.embedding, queryVec),
+    }))
     .sort((a, b) => b.score - a.score)
     .slice(0, k)
     .map((entry) => entry.chunk);
-}
-
-export function loadIndex(): Index {
-  return rawIndex as Index;
 }

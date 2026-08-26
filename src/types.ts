@@ -4,9 +4,11 @@ export interface Chunk {
   text: string;
 }
 
-export interface Index {
-  chunks: Chunk[];
-  embeddings: number[][];
+export interface KnowledgeEntry {
+  id: string;
+  source: string;
+  text: string;
+  embedding: number[];
 }
 
 export interface ChatMessage {

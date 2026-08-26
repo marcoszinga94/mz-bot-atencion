@@ -1,28 +1,49 @@
-import { buildMessages } from "./prompt.js";
+import { buildMessages, type Persona } from "./prompt.js";
 import { complete } from "./zen.js";
-import { embed, loadIndex, retrieve } from "./rag.js";
-import type { Chunk, ChatMessage, Index } from "./types.js";
+import { embed, retrieve } from "./rag.js";
+import { createBlobStore, type KnowledgeStore } from "./store.js";
+import { getConfig } from "./config.js";
+import type { Chunk, ChatMessage, KnowledgeEntry } from "./types.js";
 
 export interface AnswerDeps {
   embed: (text: string) => Promise<number[]>;
-  retrieve: (index: Index, queryVec: number[], k: number) => Chunk[];
+  retrieve: (entries: KnowledgeEntry[], queryVec: number[], k: number) => Chunk[];
   complete: (messages: ChatMessage[]) => Promise<string>;
-  loadIndex: () => Index;
+  getEntries: () => Promise<KnowledgeEntry[]>;
+  persona: Persona;
 }
 
 export function createAnswerer(deps: AnswerDeps) {
   return async function answerQuestion(question: string): Promise<string> {
-    const index = deps.loadIndex();
+    const entries = await deps.getEntries();
     const queryVec = await deps.embed(question);
-    const chunks = deps.retrieve(index, queryVec, 4);
-    const messages = buildMessages(chunks, question);
+    const chunks = deps.retrieve(entries, queryVec, 4);
+    const messages = buildMessages(chunks, question, deps.persona);
     return deps.complete(messages);
   };
 }
 
-export const answerQuestion = createAnswerer({
-  embed,
-  retrieve,
-  complete,
-  loadIndex,
-});
+let store: KnowledgeStore | null = null;
+function getStore(): KnowledgeStore {
+  store ??= createBlobStore(getConfig().blobToken);
+  return store;
+}
+
+let defaultAnswerer: ((question: string) => Promise<string>) | null = null;
+function getDefaultAnswerer(): (question: string) => Promise<string> {
+  defaultAnswerer ??= createAnswerer({
+    embed,
+    retrieve,
+    complete,
+    getEntries: () => getStore().list(),
+    persona: {
+      name: getConfig().assistantName,
+      description: getConfig().assistantDescription,
+    },
+  });
+  return defaultAnswerer;
+}
+
+export async function answerQuestion(question: string): Promise<string> {
+  return getDefaultAnswerer()(question);
+}

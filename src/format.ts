@@ -1,9 +1,7 @@
-export const CONTACT_FOOTER =
-  "\n\n📧 marcoszinga94@gmail.com · 📱 https://wa.me/5493584406950";
-
-export function appendContact(text: string): string {
-  if (text.includes("wa.me/5493584406950")) return text;
-  return `${text}${CONTACT_FOOTER}`;
+export function appendContact(text: string, contact?: string): string {
+  if (!contact) return text;
+  if (text.includes(contact)) return text;
+  return `${text}\n\n${contact}`;
 }
 
 export function toPlainText(text: string): string {

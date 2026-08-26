@@ -2,15 +2,18 @@ import { describe, expect, it } from "vitest";
 import { appendContact, toPlainText } from "../src/format.js";
 
 describe("appendContact", () => {
-  it("agrega el footer de contacto si no está", () => {
-    const out = appendContact("Hola");
-    expect(out).toContain("wa.me/5493584406950");
-    expect(out).toContain("marcoszinga94@gmail.com");
+  it("no agrega footer si no hay contacto configurado", () => {
+    expect(appendContact("Hola")).toBe("Hola");
+  });
+
+  it("agrega el footer si hay contacto", () => {
+    const out = appendContact("Hola", "📧 hola@acme.com");
+    expect(out).toBe("Hola\n\n📧 hola@acme.com");
   });
 
   it("no duplica el contacto si el texto ya lo incluye", () => {
-    const text = "Consulta en https://wa.me/5493584406950";
-    expect(appendContact(text)).toBe(text);
+    const text = "Consulta en 📧 hola@acme.com";
+    expect(appendContact(text, "📧 hola@acme.com")).toBe(text);
   });
 });
 

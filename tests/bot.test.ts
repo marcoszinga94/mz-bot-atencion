@@ -1,6 +1,7 @@
 process.env.TELEGRAM_BOT_TOKEN = "test-token";
 process.env.ZEN_API_KEY = "test-key";
 process.env.WEBHOOK_SECRET = "test-secret";
+process.env.ADMIN_IDS = "111, 222";
 
 import { Bot } from "grammy";
 import { describe, expect, it, vi } from "vitest";
