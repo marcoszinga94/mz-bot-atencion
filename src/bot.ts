@@ -2,7 +2,7 @@ import { Bot, InlineKeyboard } from "grammy";
 import { getConfig } from "./config.js";
 import { answerQuestion } from "./answer.js";
 import { transcribe } from "./stt.js";
-import { toPlainText } from "./format.js";
+import { appendContact, toPlainText } from "./format.js";
 
 export interface BotDeps {
   answerQuestion: (question: string) => Promise<string>;
@@ -27,7 +27,7 @@ export function createBot(deps: BotDeps = { answerQuestion }) {
   bot.callbackQuery("servicios", async (ctx) => {
     await ctx.answerCallbackQuery();
     try {
-      await ctx.reply(toPlainText(await deps.answerQuestion("¿Qué servicios de desarrollo web ofrece Marcos?")));
+      await ctx.reply(appendContact(toPlainText(await deps.answerQuestion("¿Qué servicios de desarrollo web ofrece Marcos?"))));
     } catch (err) {
       console.error("Error al responder:", err);
       await ctx.reply("Ups, tuve un problema técnico. Escribile directamente a Marcos por WhatsApp 📱 https://wa.me/5493584406950.");
@@ -37,7 +37,7 @@ export function createBot(deps: BotDeps = { answerQuestion }) {
   bot.callbackQuery("proyectos", async (ctx) => {
     await ctx.answerCallbackQuery();
     try {
-      await ctx.reply(toPlainText(await deps.answerQuestion("¿Qué proyectos ha desarrollado Marcos?")));
+      await ctx.reply(appendContact(toPlainText(await deps.answerQuestion("¿Qué proyectos ha desarrollado Marcos?"))));
     } catch (err) {
       console.error("Error al responder:", err);
       await ctx.reply("Ups, tuve un problema técnico. Escribile directamente a Marcos por WhatsApp 📱 https://wa.me/5493584406950.");
@@ -55,7 +55,7 @@ export function createBot(deps: BotDeps = { answerQuestion }) {
     const placeholder = await ctx.reply("Un momento, estoy buscando esa información...");
     try {
       const answer = await deps.answerQuestion(ctx.message.text);
-      await ctx.api.editMessageText(placeholder.chat.id, placeholder.message_id, toPlainText(answer));
+      await ctx.api.editMessageText(placeholder.chat.id, placeholder.message_id, appendContact(toPlainText(answer)));
     } catch (err) {
       console.error("Error al responder:", err);
       await ctx.api.editMessageText(
@@ -100,7 +100,7 @@ export function createBot(deps: BotDeps = { answerQuestion }) {
       await ctx.api.editMessageText(
         placeholder.chat.id,
         placeholder.message_id,
-        `📝 Transcripción:\n${text}\n\n${toPlainText(answer)}`,
+        `📝 Transcripción:\n${text}\n\n${appendContact(toPlainText(answer))}`,
       );
     } catch (err) {
       console.error("Error en nota de voz:", err);

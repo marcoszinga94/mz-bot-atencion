@@ -1,3 +1,11 @@
+export const CONTACT_FOOTER =
+  "\n\n📧 marcoszinga94@gmail.com · 📱 https://wa.me/5493584406950";
+
+export function appendContact(text: string): string {
+  if (text.includes("wa.me/5493584406950")) return text;
+  return `${text}${CONTACT_FOOTER}`;
+}
+
 export function toPlainText(text: string): string {
   return text
     .replace(/\*\*([^*]+)\*\*/g, "$1")
