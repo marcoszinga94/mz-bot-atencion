@@ -68,7 +68,7 @@ describe("transcribe", () => {
     vi.clearAllMocks();
   });
 
-  it("decodifica el audio y devuelve el texto transcrito", async () => {
+  it("decodifica el audio y devuelve el texto transcrito en español", async () => {
     const child = fakeChild();
     spawnMock.mockReturnValue(child);
 
@@ -79,6 +79,9 @@ describe("transcribe", () => {
 
     const text = await promise;
     expect(text).toBe("hola mundo");
-    expect(transcribeMock).toHaveBeenCalled();
+    expect(transcribeMock).toHaveBeenCalledWith(
+      expect.any(Float32Array),
+      { language: "es", task: "transcribe" },
+    );
   });
 });

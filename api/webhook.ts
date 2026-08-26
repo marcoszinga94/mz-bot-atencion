@@ -6,4 +6,7 @@ export const maxDuration = 60;
 
 const bot = createBot();
 
-export default webhookCallback(bot, "https", { secretToken: getConfig().webhookSecret });
+export default webhookCallback(bot, "https", {
+  secretToken: getConfig().webhookSecret,
+  timeoutMilliseconds: 55000,
+});

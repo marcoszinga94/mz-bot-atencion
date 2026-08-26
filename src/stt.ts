@@ -46,6 +46,6 @@ export function decodeToPcm(buffer: Buffer): Promise<Float32Array> {
 export async function transcribe(buffer: Buffer): Promise<string> {
   const audio = await decodeToPcm(buffer);
   const transcriber = await getTranscriber();
-  const output = await transcriber(audio);
+  const output = await transcriber(audio, { language: "es", task: "transcribe" });
   return (output as { text: string }).text.trim();
 }
