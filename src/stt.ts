@@ -2,7 +2,7 @@ import { env, pipeline } from "@huggingface/transformers";
 import { spawn } from "node:child_process";
 import ffmpegPath from "ffmpeg-static";
 
-const MODEL = "Xenova/whisper-tiny";
+const MODEL = "Xenova/whisper-base";
 const FFMPEG_PATH = ffmpegPath as unknown as string;
 
 env.cacheDir = "/tmp/transformers";
