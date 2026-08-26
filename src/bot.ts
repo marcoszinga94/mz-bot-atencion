@@ -1,6 +1,7 @@
 import { Bot, InlineKeyboard } from "grammy";
 import { getConfig } from "./config.js";
 import { answerQuestion } from "./answer.js";
+import { transcribe } from "./stt.js";
 
 export interface BotDeps {
   answerQuestion: (question: string) => Promise<string>;
@@ -60,6 +61,52 @@ export function createBot(deps: BotDeps = { answerQuestion }) {
         placeholder.chat.id,
         placeholder.message_id,
         "Ups, tuve un problema técnico. Probá de nuevo en un momento o escribile directamente a Marcos por WhatsApp 📱 +54 9 3584 40-6950.",
+      );
+    }
+  });
+
+  bot.on("message:voice", async (ctx) => {
+    const voice = ctx.message.voice;
+    if (voice.duration > 45) {
+      await ctx.reply(
+        "La nota de voz es muy larga (máximo 45 segundos). Enviá una más corta o escribí tu consulta por texto.",
+      );
+      return;
+    }
+
+    const placeholder = await ctx.reply("Escuchando tu nota de voz... 🎙️");
+    try {
+      const file = await ctx.getFile();
+      if (!file.file_path) throw new Error("El archivo no tiene file_path");
+      const res = await fetch(
+        `https://api.telegram.org/file/bot${getConfig().botToken}/${file.file_path}`,
+      );
+      if (!res.ok) throw new Error(`Descarga del audio falló (${res.status})`);
+
+      const audio = Buffer.from(await res.arrayBuffer());
+      const text = await transcribe(audio);
+
+      if (!text) {
+        await ctx.api.editMessageText(
+          placeholder.chat.id,
+          placeholder.message_id,
+          "No pude entender la nota de voz. ¿Podés escribir tu consulta por texto?",
+        );
+        return;
+      }
+
+      const answer = await deps.answerQuestion(text);
+      await ctx.api.editMessageText(
+        placeholder.chat.id,
+        placeholder.message_id,
+        `📝 Transcripción:\n${text}\n\n${answer}`,
+      );
+    } catch (err) {
+      console.error("Error en nota de voz:", err);
+      await ctx.api.editMessageText(
+        placeholder.chat.id,
+        placeholder.message_id,
+        "Ups, tuve un problema procesando tu nota de voz. Probá de nuevo o escribí tu consulta por texto.",
       );
     }
   });
