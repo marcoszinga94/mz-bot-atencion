@@ -2,6 +2,7 @@
   "name": "telegram-bot-atencion",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "build-index": "tsx scripts/build-index.ts",
     "set-webhook": "tsx scripts/set-webhook.ts",
