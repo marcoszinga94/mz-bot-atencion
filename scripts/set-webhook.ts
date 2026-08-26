@@ -15,7 +15,7 @@ const config = getConfig();
 const res = await fetch(`${TELEGRAM_API}/bot${config.botToken}/setWebhook`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ url, secret_token: config.botToken }),
+  body: JSON.stringify({ url, secret_token: config.webhookSecret }),
 });
 
 const data = (await res.json()) as { ok: boolean; description?: string };

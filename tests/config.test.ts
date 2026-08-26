@@ -10,17 +10,29 @@ describe("loadConfig", () => {
     expect(() => loadConfig({ TELEGRAM_BOT_TOKEN: "t" })).toThrow("ZEN_API_KEY");
   });
 
-  it("usa deepseek-v4-flash como modelo por defecto", () => {
-    const config = loadConfig({ TELEGRAM_BOT_TOKEN: "t", ZEN_API_KEY: "k" });
-    expect(config.zenModel).toBe("deepseek-v4-flash");
+  it("lanza si falta WEBHOOK_SECRET", () => {
+    expect(() =>
+      loadConfig({ TELEGRAM_BOT_TOKEN: "t", ZEN_API_KEY: "k" }),
+    ).toThrow("WEBHOOK_SECRET");
   });
 
-  it("respeta ZEN_MODEL", () => {
+  it("usa deepseek-v4-flash como modelo por defecto", () => {
     const config = loadConfig({
       TELEGRAM_BOT_TOKEN: "t",
       ZEN_API_KEY: "k",
+      WEBHOOK_SECRET: "s",
+    });
+    expect(config.zenModel).toBe("deepseek-v4-flash");
+  });
+
+  it("respeta ZEN_MODEL y expone webhookSecret", () => {
+    const config = loadConfig({
+      TELEGRAM_BOT_TOKEN: "t",
+      ZEN_API_KEY: "k",
+      WEBHOOK_SECRET: "s",
       ZEN_MODEL: "nemotron-3-ultra-free",
     });
     expect(config.zenModel).toBe("nemotron-3-ultra-free");
+    expect(config.webhookSecret).toBe("s");
   });
 });

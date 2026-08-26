@@ -1,5 +1,6 @@
 process.env.TELEGRAM_BOT_TOKEN = "test-token";
 process.env.ZEN_API_KEY = "test-key";
+process.env.WEBHOOK_SECRET = "test-secret";
 
 import { describe, expect, it, vi } from "vitest";
 import { createAnswerer } from "../src/answer";

@@ -17,23 +17,24 @@ de OpenCode Zen. Hosteado en Vercel.
 | `TELEGRAM_BOT_TOKEN` | Token del bot de Telegram |
 | `ZEN_API_KEY` | API key de OpenCode Zen |
 | `ZEN_MODEL` | Modelo de Zen (default `deepseek-v4-flash`) |
+| `WEBHOOK_SECRET` | Secreto del webhook (solo `A-Z a-z 0-9 _ -`; se puede generar con `openssl rand -hex 32`) |
 
 ## Uso local
 
 ```bash
 npm install
-TELEGRAM_BOT_TOKEN=... ZEN_API_KEY=... npm run build-index
-TELEGRAM_BOT_TOKEN=... ZEN_API_KEY=... npm test
+TELEGRAM_BOT_TOKEN=... ZEN_API_KEY=... WEBHOOK_SECRET=... npm run build-index
+TELEGRAM_BOT_TOKEN=... ZEN_API_KEY=... WEBHOOK_SECRET=... npm test
 ```
 
 ## Deploy en Vercel
 
 1. Subir el repo a GitHub y conectar con Vercel, o `vercel --prod`.
-2. Cargar `TELEGRAM_BOT_TOKEN` y `ZEN_API_KEY` en Project Settings → Environment Variables.
+2. Cargar `TELEGRAM_BOT_TOKEN`, `ZEN_API_KEY` y `WEBHOOK_SECRET` en Project Settings → Environment Variables.
 3. Configurar el webhook:
 
 ```bash
-TELEGRAM_BOT_TOKEN=... ZEN_API_KEY=... npm run set-webhook -- https://tu-proyecto.vercel.app/api/webhook
+TELEGRAM_BOT_TOKEN=... ZEN_API_KEY=... WEBHOOK_SECRET=... npm run set-webhook -- https://tu-proyecto.vercel.app/api/webhook
 ```
 
 4. Hablarle al bot en Telegram.
