@@ -24,12 +24,22 @@ export function createBot(deps: BotDeps = { answerQuestion }) {
 
   bot.callbackQuery("servicios", async (ctx) => {
     await ctx.answerCallbackQuery();
-    await ctx.reply(await deps.answerQuestion("¿Qué servicios de desarrollo web ofrece Marcos?"));
+    try {
+      await ctx.reply(await deps.answerQuestion("¿Qué servicios de desarrollo web ofrece Marcos?"));
+    } catch (err) {
+      console.error("Error al responder:", err);
+      await ctx.reply("Ups, tuve un problema técnico. Escribile directamente a Marcos por WhatsApp 📱 +54 9 3584 40-6950.");
+    }
   });
 
   bot.callbackQuery("proyectos", async (ctx) => {
     await ctx.answerCallbackQuery();
-    await ctx.reply(await deps.answerQuestion("¿Qué proyectos ha desarrollado Marcos?"));
+    try {
+      await ctx.reply(await deps.answerQuestion("¿Qué proyectos ha desarrollado Marcos?"));
+    } catch (err) {
+      console.error("Error al responder:", err);
+      await ctx.reply("Ups, tuve un problema técnico. Escribile directamente a Marcos por WhatsApp 📱 +54 9 3584 40-6950.");
+    }
   });
 
   bot.callbackQuery("contacto", async (ctx) => {
