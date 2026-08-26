@@ -1,53 +1,65 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { EventEmitter } from "node:events";
 
-const decodeMock = vi.fn();
-const freeMock = vi.fn();
-const transcribeMock = vi.fn(async () => ({ text: "hola mundo" }));
-
-vi.mock("ogg-opus-decoder", () => ({
-  OggOpusDecoder: class {
-    ready = Promise.resolve();
-    decode = decodeMock;
-    free = freeMock;
-  },
+const { spawnMock, transcribeMock } = vi.hoisted(() => ({
+  spawnMock: vi.fn(),
+  transcribeMock: vi.fn(),
 }));
 
+vi.mock("ffmpeg-static", () => ({ default: "/fake/ffmpeg" }));
 vi.mock("@huggingface/transformers", () => ({
   env: { cacheDir: "" },
   pipeline: vi.fn(async () => transcribeMock),
 }));
+vi.mock("node:child_process", () => ({ spawn: spawnMock }));
 
-import { resample, transcribe } from "../src/stt.js";
+import { decodeToPcm, transcribe } from "../src/stt.js";
 
-describe("resample", () => {
-  it("devuelve la misma señal si las tasas son iguales", () => {
-    const input = new Float32Array([1, 2, 3, 4]);
-    expect(resample(input, 48000, 48000)).toEqual(input);
+type FakeChild = EventEmitter & {
+  stdout: EventEmitter;
+  stdin: { write: (b: Buffer) => void; end: () => void };
+};
+
+function fakeChild(): FakeChild {
+  const child = new EventEmitter() as FakeChild;
+  child.stdout = new EventEmitter();
+  child.stdin = { write: vi.fn(), end: vi.fn() };
+  return child;
+}
+
+describe("decodeToPcm", () => {
+  it("convierte la salida f32le de ffmpeg en Float32Array a 16kHz", async () => {
+    const child = fakeChild();
+    spawnMock.mockReturnValue(child);
+
+    const promise = decodeToPcm(Buffer.from("fake"));
+    const samples = new Float32Array([0.5, -0.25, 1]);
+    child.stdout.emit("data", Buffer.from(samples.buffer));
+    child.emit("close", 0);
+
+    const result = await promise;
+    expect(result.length).toBe(3);
+    expect(result[0]).toBeCloseTo(0.5);
+    expect(spawnMock).toHaveBeenCalledWith(
+      "/fake/ffmpeg",
+      expect.arrayContaining(["-ar", "16000", "-ac", "1", "-f", "f32le"]),
+      expect.anything(),
+    );
   });
 
-  it("reduce 48kHz a 16kHz (factor 3)", () => {
-    const input = new Float32Array([0, 1, 2, 3, 4, 5]);
-    const out = resample(input, 48000, 16000);
-    expect(out.length).toBe(2);
-    expect(out[0]).toBeCloseTo(0);
-    expect(out[1]).toBeCloseTo(3);
-  });
+  it("rechaza si ffmpeg sale con código != 0", async () => {
+    const child = fakeChild();
+    spawnMock.mockReturnValue(child);
 
-  it("aumenta 16kHz a 48kHz (factor 3)", () => {
-    const input = new Float32Array([0, 1]);
-    const out = resample(input, 16000, 48000);
-    expect(out.length).toBe(6);
+    const promise = decodeToPcm(Buffer.from("fake"));
+    child.emit("close", 1);
+
+    await expect(promise).rejects.toThrow(/código 1/);
   });
 });
 
 describe("transcribe", () => {
   beforeEach(() => {
-    decodeMock.mockReset();
-    decodeMock.mockReturnValue({
-      channelData: [new Float32Array([0, 1, 2, 3, 4, 5])],
-      sampleRate: 48000,
-    });
-    freeMock.mockReset();
     transcribeMock.mockReset();
     transcribeMock.mockResolvedValue({ text: "hola mundo" });
   });
@@ -56,10 +68,17 @@ describe("transcribe", () => {
     vi.clearAllMocks();
   });
 
-  it("decodifica, resamplea a 16kHz y devuelve el texto", async () => {
-    const text = await transcribe(Buffer.from("fake-ogg"));
+  it("decodifica el audio y devuelve el texto transcrito", async () => {
+    const child = fakeChild();
+    spawnMock.mockReturnValue(child);
+
+    const promise = transcribe(Buffer.from("fake"));
+    const samples = new Float32Array([0.1, 0.2, 0.3]);
+    child.stdout.emit("data", Buffer.from(samples.buffer));
+    child.emit("close", 0);
+
+    const text = await promise;
     expect(text).toBe("hola mundo");
-    expect(decodeMock).toHaveBeenCalled();
-    expect(freeMock).toHaveBeenCalled();
+    expect(transcribeMock).toHaveBeenCalled();
   });
 });

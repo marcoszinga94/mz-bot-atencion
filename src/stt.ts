@@ -1,7 +1,9 @@
 import { env, pipeline } from "@huggingface/transformers";
-import { OggOpusDecoder } from "ogg-opus-decoder";
+import { spawn } from "node:child_process";
+import ffmpegPath from "ffmpeg-static";
 
 const MODEL = "Xenova/whisper-tiny";
+const FFMPEG_PATH = ffmpegPath as unknown as string;
 
 env.cacheDir = "/tmp/transformers";
 
@@ -16,36 +18,34 @@ function getTranscriber() {
   return transcriberPromise;
 }
 
-export function resample(
-  audio: Float32Array,
-  fromRate: number,
-  toRate: number,
-): Float32Array {
-  if (fromRate === toRate) return audio;
-  const ratio = fromRate / toRate;
-  const length = Math.round(audio.length / ratio);
-  const out = new Float32Array(length);
-  for (let i = 0; i < length; i++) {
-    const pos = i * ratio;
-    const i0 = Math.floor(pos);
-    const i1 = Math.min(i0 + 1, audio.length - 1);
-    const frac = pos - i0;
-    out[i] = audio[i0] + (audio[i1] - audio[i0]) * frac;
-  }
-  return out;
+export function decodeToPcm(buffer: Buffer): Promise<Float32Array> {
+  return new Promise((resolve, reject) => {
+    const ff = spawn(
+      FFMPEG_PATH,
+      ["-i", "pipe:0", "-f", "f32le", "-ac", "1", "-ar", "16000", "pipe:1"],
+      { stdio: ["pipe", "pipe", "pipe"] },
+    );
+
+    const chunks: Buffer[] = [];
+    ff.stdout.on("data", (chunk: Buffer) => chunks.push(chunk));
+    ff.on("error", reject);
+    ff.on("close", (code) => {
+      if (code !== 0) {
+        reject(new Error(`ffmpeg salió con código ${code}`));
+        return;
+      }
+      const out = Buffer.concat(chunks);
+      resolve(new Float32Array(out.buffer, out.byteOffset, out.length / 4));
+    });
+
+    ff.stdin.write(buffer);
+    ff.stdin.end();
+  });
 }
 
 export async function transcribe(buffer: Buffer): Promise<string> {
-  const decoder = new OggOpusDecoder();
-  await decoder.ready;
-  try {
-    const { channelData, sampleRate } = decoder.decode(new Uint8Array(buffer));
-    const mono = channelData[0];
-    const audio16k = resample(mono, sampleRate, 16000);
-    const transcriber = await getTranscriber();
-    const output = await transcriber(audio16k);
-    return (output as { text: string }).text.trim();
-  } finally {
-    decoder.free();
-  }
+  const audio = await decodeToPcm(buffer);
+  const transcriber = await getTranscriber();
+  const output = await transcriber(audio);
+  return (output as { text: string }).text.trim();
 }
