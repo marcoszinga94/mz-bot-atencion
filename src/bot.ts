@@ -30,7 +30,7 @@ export function createBot(deps: BotDeps = { answerQuestion }) {
       await ctx.reply(toPlainText(await deps.answerQuestion("¿Qué servicios de desarrollo web ofrece Marcos?")));
     } catch (err) {
       console.error("Error al responder:", err);
-      await ctx.reply("Ups, tuve un problema técnico. Escribile directamente a Marcos por WhatsApp 📱 +54 9 3584 40-6950.");
+      await ctx.reply("Ups, tuve un problema técnico. Escribile directamente a Marcos por WhatsApp 📱 https://wa.me/5493584406950.");
     }
   });
 
@@ -40,14 +40,14 @@ export function createBot(deps: BotDeps = { answerQuestion }) {
       await ctx.reply(toPlainText(await deps.answerQuestion("¿Qué proyectos ha desarrollado Marcos?")));
     } catch (err) {
       console.error("Error al responder:", err);
-      await ctx.reply("Ups, tuve un problema técnico. Escribile directamente a Marcos por WhatsApp 📱 +54 9 3584 40-6950.");
+      await ctx.reply("Ups, tuve un problema técnico. Escribile directamente a Marcos por WhatsApp 📱 https://wa.me/5493584406950.");
     }
   });
 
   bot.callbackQuery("contacto", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.reply(
-      "📧 Email: marcoszinga94@gmail.com\n📱 WhatsApp: +54 9 3584 40-6950\n🔗 LinkedIn: in/marcos-zingaretti\n🐙 GitHub: github.com/marcoszinga94\n🌐 Web: marcoszinga.vercel.app",
+      "📧 Email: marcoszinga94@gmail.com\n📱 WhatsApp: https://wa.me/5493584406950\n🐙 GitHub: github.com/marcoszinga94\n🌐 Web: marcoszinga.vercel.app",
     );
   });
 
@@ -61,7 +61,7 @@ export function createBot(deps: BotDeps = { answerQuestion }) {
       await ctx.api.editMessageText(
         placeholder.chat.id,
         placeholder.message_id,
-        "Ups, tuve un problema técnico. Probá de nuevo en un momento o escribile directamente a Marcos por WhatsApp 📱 +54 9 3584 40-6950.",
+        "Ups, tuve un problema técnico. Probá de nuevo en un momento o escribile directamente a Marcos por WhatsApp 📱 https://wa.me/5493584406950.",
       );
     }
   });

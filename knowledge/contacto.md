@@ -1,8 +1,7 @@
 # Contacto
 
 - Email: marcoszinga94@gmail.com
-- WhatsApp: +54 9 3584 40-6950
-- LinkedIn: in/marcos-zingaretti
+- WhatsApp: https://wa.me/5493584406950
 - GitHub: github.com/marcoszinga94
 - Web: marcoszinga.vercel.app
 - Ubicación: La Carlota, Córdoba, Argentina
