@@ -1,7 +1,7 @@
-import { buildMessages } from "./prompt";
-import { complete } from "./zen";
-import { embed, loadIndex, retrieve } from "./rag";
-import type { Chunk, ChatMessage, Index } from "./types";
+import { buildMessages } from "./prompt.js";
+import { complete } from "./zen.js";
+import { embed, loadIndex, retrieve } from "./rag.js";
+import type { Chunk, ChatMessage, Index } from "./types.js";
 
 export interface AnswerDeps {
   embed: (text: string) => Promise<number[]>;

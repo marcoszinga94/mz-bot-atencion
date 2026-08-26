@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { cosine, loadIndex, retrieve } from "../src/rag";
+import { cosine, loadIndex, retrieve } from "../src/rag.js";
 
 describe("cosine", () => {
   it("devuelve 1 para vectores idénticos", () => {

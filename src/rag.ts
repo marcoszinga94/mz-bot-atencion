@@ -1,6 +1,6 @@
 import { env, pipeline } from "@huggingface/transformers";
-import type { Chunk, Index } from "./types";
-import rawIndex from "../knowledge/index.json";
+import type { Chunk, Index } from "./types.js";
+import rawIndex from "../knowledge/index.json" with { type: "json" };
 
 env.cacheDir = "/tmp/transformers";
 

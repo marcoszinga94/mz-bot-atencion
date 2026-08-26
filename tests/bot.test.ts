@@ -4,7 +4,7 @@ process.env.WEBHOOK_SECRET = "test-secret";
 
 import { Bot } from "grammy";
 import { describe, expect, it, vi } from "vitest";
-import { createBot } from "../src/bot";
+import { createBot } from "../src/bot.js";
 
 describe("createBot", () => {
   it("construye la instancia del bot sin llamar a la API", () => {

@@ -1,5 +1,5 @@
-import { getConfig } from "./config";
-import type { ChatMessage } from "./types";
+import { getConfig } from "./config.js";
+import type { ChatMessage } from "./types.js";
 
 const API_URL = "https://opencode.ai/zen/v1/chat/completions";
 

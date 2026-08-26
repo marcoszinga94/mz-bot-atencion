@@ -1,4 +1,4 @@
-import type { Chunk, ChatMessage } from "./types";
+import type { Chunk, ChatMessage } from "./types.js";
 
 const SYSTEM = [
   "Sos el asistente virtual de Marcos Zingaretti, desarrollador web full-stack.",

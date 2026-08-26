@@ -1,6 +1,6 @@
 import { Bot, InlineKeyboard } from "grammy";
-import { getConfig } from "./config";
-import { answerQuestion } from "./answer";
+import { getConfig } from "./config.js";
+import { answerQuestion } from "./answer.js";
 
 export interface BotDeps {
   answerQuestion: (question: string) => Promise<string>;

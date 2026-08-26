@@ -1,4 +1,4 @@
-import { getConfig } from "../src/config";
+import { getConfig } from "../src/config.js";
 
 const TELEGRAM_API = "https://api.telegram.org";
 const url = process.env.WEBHOOK_URL ?? process.argv[2];

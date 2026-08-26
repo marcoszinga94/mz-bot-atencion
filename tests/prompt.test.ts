@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { buildMessages } from "../src/prompt";
-import type { Chunk } from "../src/types";
+import { buildMessages } from "../src/prompt.js";
+import type { Chunk } from "../src/types.js";
 
 const chunks: Chunk[] = [
   { id: 0, source: "servicios.md", text: "Tienda online: desarrollo inicial $500 + $30 por mes." },

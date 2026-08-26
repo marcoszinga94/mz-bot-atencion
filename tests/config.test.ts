@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { loadConfig } from "../src/config";
+import { loadConfig } from "../src/config.js";
 
 describe("loadConfig", () => {
   it("lanza si falta TELEGRAM_BOT_TOKEN", () => {

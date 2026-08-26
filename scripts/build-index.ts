@@ -1,7 +1,7 @@
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pipeline } from "@huggingface/transformers";
-import type { Chunk } from "../src/types";
+import type { Chunk } from "../src/types.js";
 
 const KNOWLEDGE_DIR = path.join(process.cwd(), "knowledge");
 const MODEL = "Xenova/paraphrase-multilingual-MiniLM-L12-v2";

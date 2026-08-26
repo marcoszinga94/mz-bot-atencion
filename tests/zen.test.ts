@@ -3,7 +3,7 @@ process.env.ZEN_API_KEY = "test-key";
 process.env.WEBHOOK_SECRET = "test-secret";
 
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { complete } from "../src/zen";
+import { complete } from "../src/zen.js";
 
 const okResponse = (content: string) => ({
   ok: true,
