@@ -23,10 +23,11 @@ const year = new Date().getFullYear();
           </a>
           <div class="nav-links">
             <a href="#caracteristicas">Características</a>
+            <a href="#instructivo">Instructivo</a>
             <a href="#como-usar">Cómo usarlo</a>
           </div>
-          <a class="btn btn-primary nav-cta" href="https://t.me/tu_bot" target="_blank" rel="noopener"
-            >Abrir en Telegram</a
+          <a class="btn btn-primary nav-cta" href="https://web.telegram.org" target="_blank" rel="noopener"
+            >Abrir Telegram</a
           >
         </nav>
       </div>
@@ -43,10 +44,10 @@ const year = new Date().getFullYear();
               cualquier dispositivo, en español.
             </p>
             <div class="hero-actions">
-              <a class="btn btn-primary" href="https://t.me/tu_bot" target="_blank" rel="noopener">
-                Abrir en Telegram
+              <a class="btn btn-primary" href="https://web.telegram.org" target="_blank" rel="noopener">
+                Abrir Telegram
               </a>
-              <a class="btn btn-ghost" href="#como-usar">Ver cómo funciona</a>
+              <a class="btn btn-ghost" href="#instructivo">Ver instructivo</a>
             </div>
             <div class="hero-meta">
               <span>✅ Responde al instante</span>
@@ -122,6 +123,43 @@ const year = new Date().getFullYear();
         </div>
       </section>
 
+      <!-- Instructivo -->
+      <section id="instructivo">
+        <div class="container">
+          <h2>Instructivo: <span class="grad-text">cómo abrir el bot</span></h2>
+          <p class="sub">
+            Elegí la opción que más te convenga. Solo hace falta una cuenta de Telegram para empezar a
+            consultar.
+          </p>
+          <div class="links">
+            <a class="link-card" href="https://t.me/tu_bot" target="_blank" rel="noopener">
+              <div class="icon">🤖</div>
+              <div>
+                <h3>Chat del asistente</h3>
+                <p>Link directo al bot. Tocá y empezá a preguntar.</p>
+              </div>
+              <span class="arrow">→</span>
+            </a>
+            <a class="link-card" href="https://web.telegram.org" target="_blank" rel="noopener">
+              <div class="icon">🌐</div>
+              <div>
+                <h3>Telegram Web</h3>
+                <p>Sin instalar nada: abrí Telegram desde el navegador y buscá el bot.</p>
+              </div>
+              <span class="arrow">→</span>
+            </a>
+            <a class="link-card" href="https://telegram.org/apps" target="_blank" rel="noopener">
+              <div class="icon">📱</div>
+              <div>
+                <h3>App de Telegram</h3>
+                <p>Descargá la aplicación oficial en tu celular o computadora.</p>
+              </div>
+              <span class="arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <!-- Cómo usarlo -->
       <section id="como-usar">
         <div class="container">
@@ -153,9 +191,10 @@ const year = new Date().getFullYear();
           <div class="cta">
             <h2>Probá el asistente <span class="grad-text">ahora</span></h2>
             <p>Abrí Telegram y hacé tu primera consulta. Sin registros, sin instalaciones: solo un chat.</p>
-            <a class="btn btn-primary" href="https://t.me/tu_bot" target="_blank" rel="noopener">
-              Abrir en Telegram
+            <a class="btn btn-primary" href="https://web.telegram.org" target="_blank" rel="noopener">
+              Abrir Telegram
             </a>
+            <p class="cta-note"><a href="#instructivo">¿Necesitás ayuda para abrirlo? Ver instructivo →</a></p>
           </div>
         </div>
       </section>
@@ -500,6 +539,58 @@ const year = new Date().getFullYear();
     font-size: 0.95rem;
   }
 
+  /* Links (instructivo) */
+  .links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 20px;
+    text-decoration: none;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+
+  .link-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-a);
+  }
+
+  .link-card .icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: rgba(34, 211, 238, 0.14);
+    border: 1px solid rgba(34, 211, 238, 0.3);
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+  }
+
+  .link-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 4px;
+  }
+
+  .link-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .link-card .arrow {
+    margin-left: auto;
+    color: var(--accent-a);
+    font-size: 1.2rem;
+  }
+
   /* Pasos */
   .steps {
     display: grid;
@@ -577,6 +668,20 @@ const year = new Date().getFullYear();
     margin: 0 auto 30px;
   }
 
+  .cta-note {
+    margin-top: 18px;
+  }
+
+  .cta-note a {
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-decoration: underline;
+  }
+
+  .cta-note a:hover {
+    color: var(--accent-a);
+  }
+
   /* Footer */
   footer {
     border-top: 1px solid var(--border);
@@ -600,6 +705,7 @@ const year = new Date().getFullYear();
       padding: 60px 0;
     }
     .features,
+    .links,
     .steps {
       grid-template-columns: 1fr;
     }
