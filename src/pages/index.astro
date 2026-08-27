@@ -145,38 +145,74 @@ const year = new Date().getFullYear();
             <li>
               <h3>Cloná el repositorio</h3>
               <p>Descargá el código a tu máquina.</p>
-              <pre><code>git clone https://github.com/marcoszinga94/telegram-bot-atencion.git</code></pre>
+              <div class="code-block">
+                <div class="code-head">
+                  <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <button class="copy-btn" type="button" aria-label="Copiar comando"></button>
+                </div>
+                <pre><code>git clone https://github.com/marcoszinga94/telegram-bot-atencion.git</code></pre>
+              </div>
             </li>
             <li>
               <h3>Instalá las dependencias</h3>
               <p>El único requisito previo es Node 20+.</p>
-              <pre><code>cd telegram-bot-atencion
+              <div class="code-block">
+                <div class="code-head">
+                  <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <button class="copy-btn" type="button" aria-label="Copiar comando"></button>
+                </div>
+                <pre><code>cd telegram-bot-atencion
 npm install</code></pre>
+              </div>
             </li>
             <li>
               <h3>Configurá el entorno</h3>
               <p>Creá un archivo <code>.env</code> con tus credenciales.</p>
-              <pre><code>TELEGRAM_BOT_TOKEN=...    # de @BotFather
+              <div class="code-block">
+                <div class="code-head">
+                  <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <button class="copy-btn" type="button" aria-label="Copiar comando"></button>
+                </div>
+                <pre><code>TELEGRAM_BOT_TOKEN=...    # de @BotFather
 ZEN_API_KEY=...           # de opencode.ai
 WEBHOOK_SECRET=...        # openssl rand -hex 32
 BLOB_READ_WRITE_TOKEN=... # del Blob store
 ADMIN_IDS=...             # tu ID de Telegram</code></pre>
+              </div>
             </li>
             <li>
               <h3>Sembrá el conocimiento</h3>
               <p>Subí los archivos de <code>knowledge/</code> a tu base en Blob.</p>
-              <pre><code>source .env
+              <div class="code-block">
+                <div class="code-head">
+                  <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <button class="copy-btn" type="button" aria-label="Copiar comando"></button>
+                </div>
+                <pre><code>source .env
 npm run seed-knowledge</code></pre>
+              </div>
             </li>
             <li>
               <h3>Configurá el webhook</h3>
               <p>Vinculá Telegram con tu instancia desplegada.</p>
-              <pre><code>npm run set-webhook -- https://tu-proyecto.vercel.app/api/webhook</code></pre>
+              <div class="code-block">
+                <div class="code-head">
+                  <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <button class="copy-btn" type="button" aria-label="Copiar comando"></button>
+                </div>
+                <pre><code>npm run set-webhook -- https://tu-proyecto.vercel.app/api/webhook</code></pre>
+              </div>
             </li>
             <li>
               <h3>Deployá en Vercel</h3>
               <p>Publicá tu instancia y empezá a atender consultas.</p>
-              <pre><code>vercel --prod</code></pre>
+              <div class="code-block">
+                <div class="code-head">
+                  <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <button class="copy-btn" type="button" aria-label="Copiar comando"></button>
+                </div>
+                <pre><code>vercel --prod</code></pre>
+              </div>
             </li>
           </ol>
         </div>
@@ -664,13 +700,52 @@ npm run seed-knowledge</code></pre>
     color: var(--accent-a);
   }
 
-  .guide pre {
+  .code-block {
     background: var(--bg-soft);
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .code-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .dots {
+    display: inline-flex;
+    gap: 5px;
+  }
+
+  .dots i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    display: block;
+  }
+
+  .dots i:nth-child(1) {
+    background: #ff5f57;
+  }
+
+  .dots i:nth-child(2) {
+    background: #febc2e;
+  }
+
+  .dots i:nth-child(3) {
+    background: #28c840;
+  }
+
+  .guide pre {
     padding: 14px 16px;
     overflow-x: auto;
-    position: relative;
+    margin: 0;
+    background: transparent;
+    border: none;
   }
 
   .guide pre code {
@@ -683,35 +758,27 @@ npm run seed-knowledge</code></pre>
   }
 
   .copy-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: transparent;
+    border: none;
     color: var(--muted);
-    border-radius: 8px;
-    padding: 6px;
+    border-radius: 6px;
+    padding: 4px;
     cursor: pointer;
-    opacity: 0.9;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-    transition: color 0.15s, border-color 0.15s, background 0.15s, transform 0.1s, box-shadow 0.15s, opacity 0.15s;
+    transition: color 0.15s, background 0.15s, transform 0.1s;
   }
 
   .copy-btn .icon {
     display: block;
-    width: 14px;
-    height: 14px;
+    width: 15px;
+    height: 15px;
   }
 
   .copy-btn:hover {
     color: var(--accent-a);
-    border-color: rgba(34, 211, 238, 0.5);
-    background: rgba(34, 211, 238, 0.08);
-    box-shadow: 0 4px 16px rgba(34, 211, 238, 0.25);
-    opacity: 1;
+    background: rgba(34, 211, 238, 0.12);
   }
 
   .copy-btn:active {
@@ -720,10 +787,6 @@ npm run seed-knowledge</code></pre>
 
   .copy-btn.copied {
     color: #34d399;
-    border-color: rgba(52, 211, 153, 0.45);
-    background: rgba(52, 211, 153, 0.1);
-    box-shadow: 0 4px 16px rgba(52, 211, 153, 0.25);
-    opacity: 1;
   }
 
   /* Pasos */
@@ -853,22 +916,17 @@ npm run seed-knowledge</code></pre>
 
 <script>
   const COPY_ICON =
-    '<svg class="icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+    '<svg class="icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
   const CHECK_ICON =
-    '<svg class="icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+    '<svg class="icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>';
 
-  const blocks = document.querySelectorAll(".guide pre");
-
-  blocks.forEach((pre) => {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "copy-btn";
-    btn.setAttribute("aria-label", "Copiar comando");
+  document.querySelectorAll(".code-block").forEach((block) => {
+    const btn = block.querySelector(".copy-btn");
+    if (!btn) return;
     btn.innerHTML = COPY_ICON;
-    pre.appendChild(btn);
 
     btn.addEventListener("click", async () => {
-      const code = pre.querySelector("code");
+      const code = block.querySelector("code");
       if (!code) return;
       const text = code.textContent?.trim() ?? "";
       try {
