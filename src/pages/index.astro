@@ -26,8 +26,8 @@ const year = new Date().getFullYear();
             <a href="#instructivo">Instructivo</a>
             <a href="#como-usar">Cómo usarlo</a>
           </div>
-          <a class="btn btn-primary nav-cta" href="https://web.telegram.org" target="_blank" rel="noopener"
-            >Abrir Telegram</a
+          <a class="btn btn-primary nav-cta" href="https://github.com/marcoszinga94/telegram-bot-atencion" target="_blank" rel="noopener"
+            >Descargar repo</a
           >
         </nav>
       </div>
@@ -44,8 +44,8 @@ const year = new Date().getFullYear();
               cualquier dispositivo, en español.
             </p>
             <div class="hero-actions">
-              <a class="btn btn-primary" href="https://web.telegram.org" target="_blank" rel="noopener">
-                Abrir Telegram
+              <a class="btn btn-primary" href="https://github.com/marcoszinga94/telegram-bot-atencion" target="_blank" rel="noopener">
+                Descargar el repositorio
               </a>
               <a class="btn btn-ghost" href="#instructivo">Ver instructivo</a>
             </div>
@@ -126,37 +126,59 @@ const year = new Date().getFullYear();
       <!-- Instructivo -->
       <section id="instructivo">
         <div class="container">
-          <h2>Instructivo: <span class="grad-text">cómo abrir el bot</span></h2>
+          <h2>Instructivo: <span class="grad-text">descargá y ejecutá el bot</span></h2>
           <p class="sub">
-            Elegí la opción que más te convenga. Solo hace falta una cuenta de Telegram para empezar a
-            consultar.
+            El bot es de código abierto. Cloná el repositorio, configurá tu propia instancia y deployala en
+            Vercel.
           </p>
           <div class="links">
-            <a class="link-card" href="https://t.me/tu_bot" target="_blank" rel="noopener">
-              <div class="icon">🤖</div>
+            <a class="link-card" href="https://github.com/marcoszinga94/telegram-bot-atencion" target="_blank" rel="noopener">
+              <div class="icon">📦</div>
               <div>
-                <h3>Chat del asistente</h3>
-                <p>Link directo al bot. Tocá y empezá a preguntar.</p>
-              </div>
-              <span class="arrow">→</span>
-            </a>
-            <a class="link-card" href="https://web.telegram.org" target="_blank" rel="noopener">
-              <div class="icon">🌐</div>
-              <div>
-                <h3>Telegram Web</h3>
-                <p>Sin instalar nada: abrí Telegram desde el navegador y buscá el bot.</p>
-              </div>
-              <span class="arrow">→</span>
-            </a>
-            <a class="link-card" href="https://telegram.org/apps" target="_blank" rel="noopener">
-              <div class="icon">📱</div>
-              <div>
-                <h3>App de Telegram</h3>
-                <p>Descargá la aplicación oficial en tu celular o computadora.</p>
+                <h3>Repositorio en GitHub</h3>
+                <p>Código fuente, documentación completa y guía de deploy.</p>
               </div>
               <span class="arrow">→</span>
             </a>
           </div>
+          <ol class="guide">
+            <li>
+              <h3>Cloná el repositorio</h3>
+              <p>Descargá el código a tu máquina.</p>
+              <pre><code>git clone https://github.com/marcoszinga94/telegram-bot-atencion.git</code></pre>
+            </li>
+            <li>
+              <h3>Instalá las dependencias</h3>
+              <p>El único requisito previo es Node 20+.</p>
+              <pre><code>cd telegram-bot-atencion
+npm install</code></pre>
+            </li>
+            <li>
+              <h3>Configurá el entorno</h3>
+              <p>Creá un archivo <code>.env</code> con tus credenciales.</p>
+              <pre><code>TELEGRAM_BOT_TOKEN=...    # de @BotFather
+ZEN_API_KEY=...           # de opencode.ai
+WEBHOOK_SECRET=...        # openssl rand -hex 32
+BLOB_READ_WRITE_TOKEN=... # del Blob store
+ADMIN_IDS=...             # tu ID de Telegram</code></pre>
+            </li>
+            <li>
+              <h3>Sembrá el conocimiento</h3>
+              <p>Subí los archivos de <code>knowledge/</code> a tu base en Blob.</p>
+              <pre><code>source .env
+npm run seed-knowledge</code></pre>
+            </li>
+            <li>
+              <h3>Configurá el webhook</h3>
+              <p>Vinculá Telegram con tu instancia desplegada.</p>
+              <pre><code>npm run set-webhook -- https://tu-proyecto.vercel.app/api/webhook</code></pre>
+            </li>
+            <li>
+              <h3>Deployá en Vercel</h3>
+              <p>Publicá tu instancia y empezá a atender consultas.</p>
+              <pre><code>vercel --prod</code></pre>
+            </li>
+          </ol>
         </div>
       </section>
 
@@ -189,12 +211,12 @@ const year = new Date().getFullYear();
       <section>
         <div class="container">
           <div class="cta">
-            <h2>Probá el asistente <span class="grad-text">ahora</span></h2>
-            <p>Abrí Telegram y hacé tu primera consulta. Sin registros, sin instalaciones: solo un chat.</p>
-            <a class="btn btn-primary" href="https://web.telegram.org" target="_blank" rel="noopener">
-              Abrir Telegram
+            <h2>Empezá con <span class="grad-text">tu propia instancia</span></h2>
+            <p>Descargá el código, seguí el instructivo y tené tu asistente atendiendo consultas en minutos.</p>
+            <a class="btn btn-primary" href="https://github.com/marcoszinga94/telegram-bot-atencion" target="_blank" rel="noopener">
+              Ver repositorio en GitHub
             </a>
-            <p class="cta-note"><a href="#instructivo">¿Necesitás ayuda para abrirlo? Ver instructivo →</a></p>
+            <p class="cta-note"><a href="#instructivo">¿Primera vez? Seguí el instructivo paso a paso →</a></p>
           </div>
         </div>
       </section>
@@ -591,6 +613,74 @@ const year = new Date().getFullYear();
     font-size: 1.2rem;
   }
 
+  /* Guía (instructivo) */
+  .guide {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+    counter-reset: guide;
+    list-style: none;
+    margin-top: 40px;
+  }
+
+  .guide li {
+    counter-increment: guide;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 24px;
+  }
+
+  .guide li::before {
+    content: counter(guide);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--grad);
+    color: #0b0f17;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+    margin-bottom: 18px;
+  }
+
+  .guide h3 {
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+  }
+
+  .guide p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+  }
+
+  .guide code {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    color: var(--accent-a);
+  }
+
+  .guide pre {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    overflow-x: auto;
+  }
+
+  .guide pre code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: var(--text);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
   /* Pasos */
   .steps {
     display: grid;
@@ -706,7 +796,8 @@ const year = new Date().getFullYear();
     }
     .features,
     .links,
-    .steps {
+    .steps,
+    .guide {
       grid-template-columns: 1fr;
     }
     .nav-links {
