@@ -1,6 +1,7 @@
 node_modules/
 .cache/
 dist/
+.astro/
 .worktrees/
 .env
 .env.*
