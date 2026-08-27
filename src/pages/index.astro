@@ -686,25 +686,41 @@ npm run seed-knowledge</code></pre>
     position: absolute;
     top: 10px;
     right: 10px;
-    background: var(--card);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--border);
     color: var(--muted);
     border-radius: 8px;
-    padding: 4px 10px;
+    padding: 5px 10px;
     font-size: 0.78rem;
     font-family: inherit;
     cursor: pointer;
-    transition: color 0.15s, border-color 0.15s, background 0.15s;
+    opacity: 0.85;
+    transition: color 0.15s, border-color 0.15s, background 0.15s, transform 0.1s, opacity 0.15s;
+  }
+
+  .copy-btn .icon {
+    display: inline-flex;
   }
 
   .copy-btn:hover {
     color: var(--accent-a);
-    border-color: var(--accent-a);
+    border-color: rgba(34, 211, 238, 0.5);
+    background: rgba(34, 211, 238, 0.1);
+    opacity: 1;
+  }
+
+  .copy-btn:active {
+    transform: scale(0.94);
   }
 
   .copy-btn.copied {
     color: #34d399;
-    border-color: #34d399;
+    border-color: rgba(52, 211, 153, 0.45);
+    background: rgba(52, 211, 153, 0.12);
+    opacity: 1;
   }
 
   /* Pasos */
@@ -833,14 +849,19 @@ npm run seed-knowledge</code></pre>
 </style>
 
 <script>
+  const COPY_ICON =
+    '<svg class="icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+  const CHECK_ICON =
+    '<svg class="icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
   const blocks = document.querySelectorAll(".guide pre");
 
   blocks.forEach((pre) => {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "copy-btn";
-    btn.textContent = "Copiar";
     btn.setAttribute("aria-label", "Copiar comando");
+    btn.innerHTML = COPY_ICON + "<span>Copiar</span>";
     pre.appendChild(btn);
 
     btn.addEventListener("click", async () => {
@@ -859,10 +880,10 @@ npm run seed-knowledge</code></pre>
         document.execCommand("copy");
         document.body.removeChild(ta);
       }
-      btn.textContent = "¡Copiado!";
+      btn.innerHTML = CHECK_ICON + "<span>¡Copiado!</span>";
       btn.classList.add("copied");
       setTimeout(() => {
-        btn.textContent = "Copiar";
+        btn.innerHTML = COPY_ICON + "<span>Copiar</span>";
         btn.classList.remove("copied");
       }, 2000);
     });
