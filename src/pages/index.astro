@@ -684,42 +684,38 @@ npm run seed-knowledge</code></pre>
 
   .copy-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 8px;
+    right: 8px;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border);
+    justify-content: center;
+    background: transparent;
+    border: none;
     color: var(--muted);
     border-radius: 8px;
-    padding: 5px 10px;
-    font-size: 0.78rem;
-    font-family: inherit;
+    padding: 6px;
     cursor: pointer;
-    opacity: 0.85;
-    transition: color 0.15s, border-color 0.15s, background 0.15s, transform 0.1s, opacity 0.15s;
+    opacity: 0.75;
+    transition: color 0.15s, background 0.15s, transform 0.1s, opacity 0.15s;
   }
 
   .copy-btn .icon {
-    display: inline-flex;
+    display: block;
   }
 
   .copy-btn:hover {
     color: var(--accent-a);
-    border-color: rgba(34, 211, 238, 0.5);
-    background: rgba(34, 211, 238, 0.1);
+    background: rgba(34, 211, 238, 0.12);
     opacity: 1;
   }
 
   .copy-btn:active {
-    transform: scale(0.94);
+    transform: scale(0.92);
   }
 
   .copy-btn.copied {
     color: #34d399;
-    border-color: rgba(52, 211, 153, 0.45);
-    background: rgba(52, 211, 153, 0.12);
+    background: rgba(52, 211, 153, 0.15);
     opacity: 1;
   }
 
@@ -861,7 +857,7 @@ npm run seed-knowledge</code></pre>
     btn.type = "button";
     btn.className = "copy-btn";
     btn.setAttribute("aria-label", "Copiar comando");
-    btn.innerHTML = COPY_ICON + "<span>Copiar</span>";
+    btn.innerHTML = COPY_ICON;
     pre.appendChild(btn);
 
     btn.addEventListener("click", async () => {
@@ -873,17 +869,21 @@ npm run seed-knowledge</code></pre>
       } catch {
         const ta = document.createElement("textarea");
         ta.value = text;
+        ta.setAttribute("readonly", "");
         ta.style.position = "fixed";
+        ta.style.top = "0";
+        ta.style.left = "-9999px";
         ta.style.opacity = "0";
         document.body.appendChild(ta);
+        ta.focus();
         ta.select();
         document.execCommand("copy");
         document.body.removeChild(ta);
       }
-      btn.innerHTML = CHECK_ICON + "<span>¡Copiado!</span>";
+      btn.innerHTML = CHECK_ICON;
       btn.classList.add("copied");
       setTimeout(() => {
-        btn.innerHTML = COPY_ICON + "<span>Copiar</span>";
+        btn.innerHTML = COPY_ICON;
         btn.classList.remove("copied");
       }, 2000);
     });
