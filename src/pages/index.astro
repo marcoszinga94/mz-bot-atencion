@@ -670,6 +670,7 @@ npm run seed-knowledge</code></pre>
     border-radius: 10px;
     padding: 14px 16px;
     overflow-x: auto;
+    position: relative;
   }
 
   .guide pre code {
@@ -679,6 +680,31 @@ npm run seed-knowledge</code></pre>
     color: var(--text);
     font-size: 0.85rem;
     line-height: 1.5;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 0.78rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+  }
+
+  .copy-btn:hover {
+    color: var(--accent-a);
+    border-color: var(--accent-a);
+  }
+
+  .copy-btn.copied {
+    color: #34d399;
+    border-color: #34d399;
   }
 
   /* Pasos */
@@ -805,3 +831,40 @@ npm run seed-knowledge</code></pre>
     }
   }
 </style>
+
+<script>
+  const blocks = document.querySelectorAll(".guide pre");
+
+  blocks.forEach((pre) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "copy-btn";
+    btn.textContent = "Copiar";
+    btn.setAttribute("aria-label", "Copiar comando");
+    pre.appendChild(btn);
+
+    btn.addEventListener("click", async () => {
+      const code = pre.querySelector("code");
+      if (!code) return;
+      const text = code.textContent?.trim() ?? "";
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+      btn.textContent = "¡Copiado!";
+      btn.classList.add("copied");
+      setTimeout(() => {
+        btn.textContent = "Copiar";
+        btn.classList.remove("copied");
+      }, 2000);
+    });
+  });
+</script>
