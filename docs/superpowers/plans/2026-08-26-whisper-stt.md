@@ -287,7 +287,7 @@ git commit -m "feat: transcribir notas de voz con whisper y responder"
 git push
 vercel --prod
 ```
-Expected: deployment Ready, alias `https://telegram-bot-atencion.vercel.app`.
+Expected: deployment Ready, alias `https://tu-proyecto.vercel.app`.
 
 - [ ] **Step 2: Verificar webhook sano**
 
@@ -297,7 +297,7 @@ export $(grep -v '^#' .env | xargs)
 curl -s -o /dev/null -w "%{http_code}\n" -X POST \
   -H "Content-Type: application/json" \
   -H "X-Telegram-Bot-Api-Secret-Token: ${WEBHOOK_SECRET}" \
-  -d '{"update_id":1}' https://telegram-bot-atencion.vercel.app/api/webhook
+  -d '{"update_id":1}' https://tu-proyecto.vercel.app/api/webhook
 ```
 Expected: `200`.
 

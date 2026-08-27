@@ -5,8 +5,8 @@ Estado: Aprobado para implementación
 
 ## Resumen
 
-Bot de Telegram para atención al cliente de la marca personal de Marcos
-Federico Zingaretti (desarrollador web full-stack). Responde preguntas sobre
+Bot de Telegram para atención al cliente de un profesional independiente
+(desarrollador web full-stack). Responde preguntas sobre
 servicios, proyectos, trayectoria, certificaciones y contacto, usando
 Recuperación Aumentada por Generación (RAG) sobre una base de conocimiento
 pequeña y versionada.
@@ -79,23 +79,17 @@ src/bot.ts (grammY) — handlers
 
 ## Base de conocimiento
 
-Fuente primaria: web personal (marcoszinga.vercel.app), perfil de GitHub
-(marcoszinga94) y carpeta de Google Drive "Marketing Personal - Marcos
-Zingaretti" (fuente editable de autoría).
+Fuente primaria: la web o perfil profesional del dueño (fuente editable de
+autoría).
 
 Se cura manualmente en markdown en `knowledge/`:
 
-- `servicios.md` — web corporativa, tienda online/e-commerce, costos y qué
-  incluye (derivado de "Servicios Desarrollo Web").
-- `proyectos.md` — Kura Medical, Argentista, EspartaGym, TurnoMaster,
-  El Socorro, MadMind: descripción y stack.
-- `trayectoria.md` — perfil profesional, experiencia (freelance, Bottos,
-  Tecno+, docente), formación (Tecnicatura en curso, Argentina Programa 2.0),
-  idiomas.
-- `certificaciones.md` — resumen de certificados de Drive (#SeProgramar,
-  #YoProgramo, Certificado Desarrollo con IA, Certificado 2026, Constancia).
-  Los PDFs son escaneos/imágenes sin texto extraíble: el resumen es manual.
-- `contacto.md` — email, WhatsApp, LinkedIn, GitHub, ubicación, web.
+- `servicios.md` — servicios ofrecidos, costos y qué incluye.
+- `proyectos.md` — proyectos destacados: descripción y stack.
+- `trayectoria.md` — perfil profesional, experiencia, formación e idiomas.
+- `certificaciones.md` — resumen de certificaciones.
+- `contacto.md` — canales de contacto del dueño (email, WhatsApp, LinkedIn,
+  GitHub, ubicación, web).
 - `marketing.md` — plan de marketing y estrategia (cómo trabaja y busca
   clientes).
 
@@ -113,7 +107,7 @@ que todo programador debe conocer", artículo "El Rol de los Pecados Capitales".
 
 ## Prompting
 
-System prompt (en español): "Sos el asistente virtual de Marcos Zingaretti,
+System prompt (en español): "Sos el asistente virtual de {nombre del dueño},
 desarrollador web full-stack. Respondés en español, tono amable y profesional,
 basándote ÚNICAMENTE en el contexto provisto. Si la información no está en el
 contexto, decís que no la tenés y ofrecés que lo contacten por email/WhatsApp.

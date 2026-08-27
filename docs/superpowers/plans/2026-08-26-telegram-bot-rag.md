@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Bot de Telegram en Vercel que responde consultas sobre la marca personal de Marcos Zingaretti usando RAG sobre una base de conocimiento en markdown y la API de OpenCode Zen.
+**Goal:** Bot de Telegram en Vercel que responde consultas sobre una marca o negocio usando RAG sobre una base de conocimiento en markdown y la API de OpenCode Zen.
 
 **Architecture:** Función serverless de Vercel (`api/webhook.ts`) recibe los updates de Telegram vía webhook de grammY. El texto del usuario se embeddea con Transformers.js, se compara por coseno contra `knowledge/index.json` (precalculado en build), los top-4 chunks se inyectan en el prompt y la respuesta la genera el modelo `deepseek-v4-flash` vía `https://opencode.ai/zen/v1/chat/completions`.
 
@@ -204,188 +204,38 @@ git commit -m "feat: scaffolding del proyecto y config de entorno"
 
 ---
 
-### Task 2: Base de conocimiento en markdown
+### Task 2: Base de conocimiento del cliente
+
+> La base de conocimiento la genera y cura cada cliente según su propio negocio
+> (con `/aprende`, documentos `.txt`/`.md`, o editando los `.md` de `knowledge/`
+> y sembrando). No se incluye contenido de ejemplo: cada instancia parte de la
+> base de su propio dueño.
 
 **Files:**
-- Create: `knowledge/servicios.md`
-- Create: `knowledge/proyectos.md`
-- Create: `knowledge/trayectoria.md`
-- Create: `knowledge/certificaciones.md`
-- Create: `knowledge/contacto.md`
-- Create: `knowledge/marketing.md`
+- Create: `knowledge/` con los `.md` provistos por el cliente (o sembrada desde
+  el chat con `/aprende` y documentos).
 
 **Interfaces:**
 - Consumes: nada.
 - Produces: archivos `knowledge/*.md` que consume `scripts/build-index.ts` (Task 3). Contenido en español, secciones con `##` para que el chunking por encabezados funcione.
 
-- [ ] **Step 1: Escribir `knowledge/servicios.md`**
+- [ ] **Step 1: Crear la carpeta y la base del cliente**
 
-```markdown
-# Servicios de Desarrollo Web
+Run: `mkdir knowledge/`
+Expected: carpeta lista para los `.md` del cliente.
 
-Marcos ofrece dos líneas principales: sitios web corporativos y tiendas online (e-commerce).
+- [ ] **Step 2: Cargar el contenido del cliente**
 
-## Sitio Web Corporativo
+El cliente sube su información (servicios, proyectos, trayectoria,
+certificaciones, contacto, marketing) desde el chat con `/aprende` y
+documentos, o en archivos `.md` dentro de `knowledge/`.
 
-Para empresas de todos los tamaños, organizaciones sin fines de lucro, instituciones educativas y profesionales independientes.
-
-Qué incluye: diseño profesional, contenido claro y actualizado, optimización SEO, información de contacto y presencia online profesional.
-
-Costos aproximados:
-- Hasta 3 páginas: $500
-- Hasta 5 páginas: $600
-- Personalizado: a convenir
-
-## Tienda Online (E-commerce)
-
-Para PyMEs, emprendedores y negocios físicos que quieren vender online, operar 24/7 y alcanzar un mercado más amplio.
-
-Qué incluye: seguridad de pagos, gestión de inventario, UX, integraciones de pago y marketing.
-
-Costos aproximados:
-- WooCommerce: desarrollo inicial $500 + $30 por mes
-- Otras plataformas: desarrollo inicial $550 + $30 por mes
-```
-
-- [ ] **Step 2: Escribir `knowledge/proyectos.md`**
-
-```markdown
-# Proyectos Destacados
-
-## Kura Medical
-
-Plataforma de gestión de historias clínicas para digitalizar el historial médico de pacientes y modernizar consultorios y centros de salud. Incluye recetas digitales, órdenes de estudios, derivaciones, módulo de turnos con recordatorios, búsqueda avanzada, autenticación y permisos por rol.
-
-Stack: React, TypeScript, Supabase, TailwindCSS.
-Sitio: kuramedical.com.ar
-
-## Argentista
-
-Visualizador interactivo de indicadores económicos de Argentina: inflación, cotización del dólar oficial y blue, riesgo país, tasas de interés y reservas del Banco Central. Gráficos dinámicos, filtros por rango de fechas, alertas personalizadas y modo oscuro.
-
-Stack: Astro, React, TailwindCSS.
-Sitio: argentista.vercel.app
-
-## EspartaGym
-
-Sistema de gimnasio online: registro de socios, planes de entrenamiento personalizados, seguimiento del progreso, control de asistencias, gestión de pagos, notificaciones push y reporting de retención.
-
-Stack: Astro, React, TailwindCSS.
-Sitio: espartagym.com
-
-## TurnoMaster
-
-Plataforma de reservas online para profesionales: panel de administración de horarios, servicios y profesionales, recordatorios automáticos por email, sincronización con Google Calendar y notificaciones que reducen inasistencias.
-
-Stack: Astro, React, TailwindCSS.
-Sitio: turnomaster.com.ar
-
-## El Socorro
-
-Sitio web institucional para El Socorro SRL, empresa agrícola: catálogo de productos y servicios, galería de maquinaria y proyectos, blog y formulario de contacto inteligente, con SEO optimizado.
-
-Stack: Astro, TailwindCSS.
-Sitio: elsocorrosrl.com
-
-## MadMind
-
-Aplicación web de apoyo para personas con depresión y ansiedad: diario privado con PIN, ejercicios de respiración guiada, seguimiento de estado de ánimo con gráficos, biblioteca de recursos y sección de emergencia. Los datos se guardan solo en el navegador.
-
-Stack: React, TypeScript, TailwindCSS.
-Sitio: madmind.vercel.app
-```
-
-- [ ] **Step 3: Escribir `knowledge/trayectoria.md`**
-
-```markdown
-# Trayectoria Profesional
-
-## Perfil
-
-Desarrollador Web Full Stack de La Carlota, Córdoba, Argentina, con formación técnica y mentalidad orientada a resultados. Combina experiencia en desarrollo freelance con gestión y atención al cliente, y traduce requerimientos de negocio en soluciones tecnológicas eficientes.
-
-## Experiencia laboral
-
-- Desarrollador Web Full Stack (2021 - actualidad): freelance / independiente, remoto. Diseño y desarrollo integral de aplicaciones web, gestión de bases de datos, APIs REST, optimización de rendimiento y relevamiento de requerimientos con clientes.
-- Administrador y Gestión (2022 - 2024): Bottos Servicios Inmobiliarios, La Carlota. Digitalización de documentación, gestión de cartera de propiedades, atención al cliente y negociación.
-- Vendedor Técnico (2021): Tecno+. Asesoramiento técnico en hardware y software.
-- Profesor (2016): Instituto Marie Curie. Docencia y desarrollo de habilidades de oratoria.
-
-## Formación
-
-- Tecnicatura Superior en Desarrollo de Software — Escuela Superior "El Nacional" (en curso, 2025-2028).
-- Programador Web Full-Stack — Argentina Programa 2.0 (2022).
-- Aprendizaje autodidacta en programación desde los 15 años.
-
-## Idiomas
-
-- Español: nativo
-- Inglés: técnico / intermedio
-```
-
-- [ ] **Step 4: Escribir `knowledge/certificaciones.md`**
-
-```markdown
-# Certificaciones
-
-- #SeProgramar — primera etapa del plan Argentina Programa.
-- #YoProgramo — etapa final de Argentina Programa 2.0 (programador web full-stack).
-- Certificado "Desarrollo con IA" (2025).
-- Certificado de proyectos con inteligencia artificial (2026).
-- Constancia de estudios de la Escuela Superior "El Nacional".
-
-Estos certificados respaldan la formación de Marcos en programación y desarrollo de software con inteligencia artificial.
-```
-
-- [ ] **Step 5: Escribir `knowledge/contacto.md`**
-
-```markdown
-# Contacto
-
-- Email: marcoszinga94@gmail.com
-- WhatsApp: +54 9 3584 40-6950
-- LinkedIn: in/marcos-zingaretti
-- GitHub: github.com/marcoszinga94
-- Web: marcoszinga.vercel.app
-- Ubicación: La Carlota, Córdoba, Argentina
-
-Marcos trabaja de forma remota como desarrollador web freelance. Responde rápido por WhatsApp o email ante consultas sobre proyectos.
-```
-
-- [ ] **Step 6: Escribir `knowledge/marketing.md`**
-
-```markdown
-# Marketing y forma de trabajo
-
-## Propuesta de valor
-
-Marcos se vende eficiencia y confianza, no solo diseño. Combina desarrollo web con conocimiento del sector de cada cliente y atención personalizada.
-
-## Sectores donde trabaja
-
-- Sector agropecuario: webs corporativas para productores, acopios, veterinarias y empresas de servicios agrícolas. Caso destacado: El Socorro.
-- Comercios locales y PyMEs: tiendas online para vender en toda la región, con pasarelas de pago como Mercado Pago.
-- Instituciones educativas y emprendedores.
-
-## Cómo busca y atiende clientes
-
-- Prospección en eventos del sector (jornadas, remates) y LinkedIn.
-- Demostraciones en vivo (presenciales o virtuales) de las soluciones.
-- Consultoría personalizada y relación de confianza a largo plazo.
-- Creación de contenido de valor (guías, análisis) y presencia activa en redes con un plan de marketing semanal.
-
-## Modelo de ingresos
-
-- Desarrollo de proyectos: pago único por proyecto (adelanto del 30% y 70% al finalizar).
-- Mantenimiento y soporte: suscripción mensual o anual.
-```
-
-- [ ] **Step 7: Verificar**
+- [ ] **Step 3: Verificar**
 
 Run: `ls -la knowledge/`
-Expected: los 6 archivos `.md` con contenido no vacío.
+Expected: los `.md` del cliente con contenido no vacío.
 
-- [ ] **Step 8: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
 git add knowledge/
@@ -626,7 +476,7 @@ Expected: FAIL con "Cannot find module '../src/prompt'".
 import type { Chunk, ChatMessage } from "./types";
 
 const SYSTEM = [
-  "Sos el asistente virtual de Marcos Zingaretti, desarrollador web full-stack.",
+  "Sos el asistente virtual de {nombre del dueño}, {descripción}.",
   "Respondés en español, con tono amable y profesional.",
   "Respondés basándote ÚNICAMENTE en el contexto provisto entre [CONTEXTO] y [/CONTEXTO].",
   "Si la información no está en el contexto, decís que no la tenés y ofrecés que lo contacten por email o WhatsApp.",
@@ -964,25 +814,25 @@ export function createBot(deps: BotDeps = { answerQuestion }) {
 
   bot.command("start", async (ctx) => {
     await ctx.reply(
-      "¡Hola! 👋 Soy el asistente virtual de Marcos Zingaretti, desarrollador web full-stack.\n\nPuedo contarte sobre sus servicios, proyectos, formación y cómo contactarlo. ¿Qué querés saber?",
+      `¡Hola! 👋 Soy ${config.assistantName ?? "el asistente"}.\n\nPuedo contarte sobre servicios, proyectos, formación y cómo contactar al dueño. ¿Qué querés saber?`,
       { reply_markup: keyboard },
     );
   });
 
   bot.callbackQuery("servicios", async (ctx) => {
     await ctx.answerCallbackQuery();
-    await ctx.reply(await deps.answerQuestion("¿Qué servicios de desarrollo web ofrece Marcos?"));
+    await ctx.reply(await deps.answerQuestion("¿Qué servicios se ofrecen?"));
   });
 
   bot.callbackQuery("proyectos", async (ctx) => {
     await ctx.answerCallbackQuery();
-    await ctx.reply(await deps.answerQuestion("¿Qué proyectos ha desarrollado Marcos?"));
+    await ctx.reply(await deps.answerQuestion("¿Qué proyectos destacados hay?"));
   });
 
   bot.callbackQuery("contacto", async (ctx) => {
     await ctx.answerCallbackQuery();
     await ctx.reply(
-      "📧 Email: marcoszinga94@gmail.com\n📱 WhatsApp: +54 9 3584 40-6950\n🔗 LinkedIn: in/marcos-zingaretti\n🐙 GitHub: github.com/marcoszinga94\n🌐 Web: marcoszinga.vercel.app",
+      config.assistantContact ?? "Contacto configurado por el dueño.",
     );
   });
 
@@ -996,7 +846,7 @@ export function createBot(deps: BotDeps = { answerQuestion }) {
       await ctx.api.editMessageText(
         placeholder.chat.id,
         placeholder.message_id,
-        "Ups, tuve un problema técnico. Probá de nuevo en un momento o escribile directamente a Marcos por WhatsApp 📱 +54 9 3584 40-6950.",
+        "Ups, tuve un problema técnico. Probá de nuevo en un momento.",
       );
     }
   });
@@ -1088,9 +938,9 @@ console.log("Webhook configurado:", JSON.stringify(data));
 ```markdown
 # Telegram Bot de Atención al Cliente con RAG
 
-Bot de Telegram para atender consultas sobre la marca personal de Marcos
-Zingaretti, con RAG sobre una base de conocimiento en `knowledge/` y la API
-de OpenCode Zen. Hosteado en Vercel.
+Bot de Telegram para atender consultas sobre una marca o negocio, con RAG
+sobre una base de conocimiento en `knowledge/` (generada por cada cliente) y la
+API de OpenCode Zen. Hosteado en Vercel.
 
 ## Requisitos
 
@@ -1136,7 +986,7 @@ Editar los `.md` de `knowledge/` y correr `npm run build-index` para regenerar
 
 Si ya se tienen `TELEGRAM_BOT_TOKEN` y `ZEN_API_KEY` en el entorno, verificar que la cadena RAG responde con:
 ```bash
-TELEGRAM_BOT_TOKEN=x ZEN_API_KEY=x npx tsx -e "import { answerQuestion } from './src/answer'; answerQuestion('¿Qué servicios ofrece Marcos?').then(console.log).catch(e => { console.error(e); process.exit(1); })"
+TELEGRAM_BOT_TOKEN=x ZEN_API_KEY=x npx tsx -e "import { answerQuestion } from './src/answer'; answerQuestion('¿Qué servicios se ofrecen?').then(console.log).catch(e => { console.error(e); process.exit(1); })"
 ```
 Expected: una respuesta en español coherente. (Si no hay credenciales aún, se puede marcar como paso pendiente.)
 

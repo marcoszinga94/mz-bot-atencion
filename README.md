@@ -22,7 +22,7 @@ almacenamiento durable en Vercel Blob.
 | `WEBHOOK_SECRET` | Secreto del webhook (solo `A-Z a-z 0-9 _ -`; `openssl rand -hex 32`) |
 | `BLOB_READ_WRITE_TOKEN` | Token del Blob store (lo agrega `vercel blob create-store --yes`) |
 | `ADMIN_IDS` | IDs de Telegram del dueño, separados por coma (vacío = modo setup) |
-| `ASISTENTE_NOMBRE` | (opcional) Nombre del asistente, p. ej. `Marcos Zingaretti` |
+| `ASISTENTE_NOMBRE` | (opcional) Nombre del asistente, p. ej. `Asistente de Mi Negocio` |
 | `ASISTENTE_DESCRIPCION` | (opcional) Descripción del asistente |
 | `ASISTENTE_CONTACTO` | (opcional) Texto de contacto que cierra cada respuesta |
 
