@@ -689,23 +689,28 @@ npm run seed-knowledge</code></pre>
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: transparent;
-    border: none;
+    background: var(--card);
+    border: 1px solid var(--border);
     color: var(--muted);
     border-radius: 8px;
     padding: 6px;
     cursor: pointer;
-    opacity: 0.75;
-    transition: color 0.15s, background 0.15s, transform 0.1s, opacity 0.15s;
+    opacity: 0.9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    transition: color 0.15s, border-color 0.15s, background 0.15s, transform 0.1s, box-shadow 0.15s, opacity 0.15s;
   }
 
   .copy-btn .icon {
     display: block;
+    width: 14px;
+    height: 14px;
   }
 
   .copy-btn:hover {
     color: var(--accent-a);
-    background: rgba(34, 211, 238, 0.12);
+    border-color: rgba(34, 211, 238, 0.5);
+    background: rgba(34, 211, 238, 0.08);
+    box-shadow: 0 4px 16px rgba(34, 211, 238, 0.25);
     opacity: 1;
   }
 
@@ -715,7 +720,9 @@ npm run seed-knowledge</code></pre>
 
   .copy-btn.copied {
     color: #34d399;
-    background: rgba(52, 211, 153, 0.15);
+    border-color: rgba(52, 211, 153, 0.45);
+    background: rgba(52, 211, 153, 0.1);
+    box-shadow: 0 4px 16px rgba(52, 211, 153, 0.25);
     opacity: 1;
   }
 
