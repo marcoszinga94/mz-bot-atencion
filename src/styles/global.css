@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0b0f17;
+  --color-ink-soft: #111826;
+  --color-card: #151d2e;
+  --color-line: #1f2a40;
+  --color-fg: #e6ecf7;
+  --color-muted: #93a1bd;
+  --color-cyan: #22d3ee;
+  --color-violet: #8b5cf6;
+  --color-ok: #34d399;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@utility wrap {
+  @apply mx-auto w-full max-w-[1080px] px-6;
+}
+
+@utility btn {
+  @apply inline-flex items-center gap-2.5 rounded-xl font-semibold text-base text-ink no-underline transition-[transform,box-shadow,filter] duration-150;
+}
+
+@utility btn-primary {
+  @apply bg-linear-to-br from-cyan to-violet shadow-[0_8px_24px_rgba(139,92,246,0.35)] hover:-translate-y-0.5 hover:brightness-105 hover:shadow-[0_12px_32px_rgba(139,92,246,0.45)];
+}
+
+@utility btn-ghost {
+  @apply border border-line text-fg transition-colors hover:border-cyan;
+}
+
+@utility grad-text {
+  @apply bg-clip-text text-transparent bg-linear-to-br from-cyan to-violet;
+}
+
+/* Contadores de los pasos y de la guía */
+.steps {
+  counter-reset: step;
+}
+
+.step .num::after {
+  counter-increment: step;
+  content: counter(step);
+}
+
+.guide {
+  counter-reset: guide;
+}
+
+.guide li::before {
+  counter-increment: guide;
+  content: counter(guide);
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 18px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #22d3ee, #8b5cf6);
+  color: #0b0f17;
+  font-weight: 700;
+}
+
+.copy-btn.copied {
+  color: var(--color-ok);
+}
