@@ -32,7 +32,7 @@ const year = new Date().getFullYear();
           </div>
           <a
             class="inline-flex items-center rounded-[10px] bg-linear-to-br from-cyan to-violet px-[18px] py-[9px] text-sm font-semibold text-ink no-underline shadow-[0_8px_24px_rgba(139,92,246,0.35)] transition-[transform,box-shadow,filter] duration-150 hover:-translate-y-0.5 hover:brightness-105"
-            href="https://github.com/marcoszinga94/telegram-bot-atencion"
+            href="https://github.com/tu-usuario/telegram-bot-atencion"
             target="_blank"
             rel="noopener"
             >Descargar repo</a
@@ -56,7 +56,7 @@ const year = new Date().getFullYear();
               cualquier dispositivo, en español.
             </p>
             <div class="mb-7 flex flex-wrap gap-3.5">
-              <a class="btn btn-primary" href="https://github.com/marcoszinga94/telegram-bot-atencion" target="_blank" rel="noopener">
+              <a class="btn btn-primary" href="https://github.com/tu-usuario/telegram-bot-atencion" target="_blank" rel="noopener">
                 Descargar el repositorio
               </a>
               <a class="btn btn-ghost" href="#instructivo">Ver instructivo</a>
@@ -169,7 +169,7 @@ const year = new Date().getFullYear();
             Vercel.
           </p>
           <div class="grid grid-cols-1 gap-[22px]">
-            <a class="flex items-center gap-4 rounded-[16px] border border-line bg-card px-5 py-[22px] no-underline transition-[transform,border-color] duration-150 hover:-translate-y-1 hover:border-cyan" href="https://github.com/marcoszinga94/telegram-bot-atencion" target="_blank" rel="noopener">
+            <a class="flex items-center gap-4 rounded-[16px] border border-line bg-card px-5 py-[22px] no-underline transition-[transform,border-color] duration-150 hover:-translate-y-1 hover:border-cyan" href="https://github.com/tu-usuario/telegram-bot-atencion" target="_blank" rel="noopener">
               <div class="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-xl border border-cyan/30 bg-cyan/15 text-[22px]"
                 >📦</div
               >
@@ -180,7 +180,7 @@ const year = new Date().getFullYear();
               <span class="ml-auto text-[1.2rem] text-cyan">→</span>
             </a>
           </div>
-          <ol class="guide mt-10 grid grid-cols-1 list-none gap-[22px] md:grid-cols-2">
+          <ol class="guide mt-10 grid list-none gap-[22px]">
             <li class="rounded-[16px] border border-line bg-card p-6">
               <h3 class="mb-2 text-[1.05rem]">Cloná el repositorio</h3>
               <p class="mb-3.5 text-[0.95rem] text-muted">Descargá el código a tu máquina.</p>
@@ -191,7 +191,7 @@ const year = new Date().getFullYear();
                   >
                   <button class="copy-btn inline-flex cursor-pointer items-center justify-center rounded-md border-none bg-transparent p-1 text-muted transition-[color,background-color,transform] duration-150 hover:bg-cyan/10 hover:text-cyan active:scale-[0.92]" type="button" aria-label="Copiar comando"></button>
                 </div>
-                <pre class="m-0 overflow-x-auto bg-transparent p-4"><code class="bg-transparent p-0 text-[0.85rem] leading-[1.5] text-fg">git clone https://github.com/marcoszinga94/telegram-bot-atencion.git</code></pre>
+                <pre class="m-0 overflow-x-auto bg-transparent p-4"><code class="bg-transparent p-0 text-[0.85rem] leading-[1.5] text-fg">git clone https://github.com/tu-usuario/telegram-bot-atencion.git</code></pre>
               </div>
             </li>
             <li class="rounded-[16px] border border-line bg-card p-6">
@@ -209,8 +209,21 @@ npm install</code></pre>
               </div>
             </li>
             <li class="rounded-[16px] border border-line bg-card p-6">
+              <h3 class="mb-2 text-[1.05rem]">Creá el Blob store</h3>
+              <p class="mb-3.5 text-[0.95rem] text-muted">Es donde vive tu base de conocimiento. Guardá el token que imprime.</p>
+              <div class="code-block overflow-hidden rounded-xl border border-line bg-ink-soft">
+                <div class="flex items-center justify-between border-b border-line bg-white/[0.03] px-2.5 py-2">
+                  <span class="dots inline-flex gap-[5px]" aria-hidden="true"
+                    ><i class="block h-[9px] w-[9px] rounded-full bg-[#ff5f57]"></i><i class="block h-[9px] w-[9px] rounded-full bg-[#febc2e]"></i><i class="block h-[9px] w-[9px] rounded-full bg-[#28c840]"></i></span
+                  >
+                  <button class="copy-btn inline-flex cursor-pointer items-center justify-center rounded-md border-none bg-transparent p-1 text-muted transition-[color,background-color,transform] duration-150 hover:bg-cyan/10 hover:text-cyan active:scale-[0.92]" type="button" aria-label="Copiar comando"></button>
+                </div>
+                <pre class="m-0 overflow-x-auto bg-transparent p-4"><code class="bg-transparent p-0 text-[0.85rem] leading-[1.5] text-fg">vercel blob create-store mi-knowledge --access private --yes</code></pre>
+              </div>
+            </li>
+            <li class="rounded-[16px] border border-line bg-card p-6">
               <h3 class="mb-2 text-[1.05rem]">Configurá el entorno</h3>
-              <p class="mb-3.5 text-[0.95rem] text-muted">Creá un archivo <code class="rounded-md border border-line bg-ink-soft px-2 py-0.5 text-[0.9em] text-cyan">.env</code> con tus credenciales.</p>
+              <p class="mb-3.5 text-[0.95rem] text-muted">Creá un archivo <code class="rounded-md border border-line bg-ink-soft px-2 py-0.5 text-[0.9em] text-cyan">.env</code> con tus credenciales. Dejá <code class="rounded-md border border-line bg-ink-soft px-2 py-0.5 text-[0.9em] text-cyan">ADMIN_IDS</code> vacío por ahora (modo setup).</p>
               <div class="code-block overflow-hidden rounded-xl border border-line bg-ink-soft">
                 <div class="flex items-center justify-between border-b border-line bg-white/[0.03] px-2.5 py-2">
                   <span class="dots inline-flex gap-[5px]" aria-hidden="true"
@@ -219,10 +232,10 @@ npm install</code></pre>
                   <button class="copy-btn inline-flex cursor-pointer items-center justify-center rounded-md border-none bg-transparent p-1 text-muted transition-[color,background-color,transform] duration-150 hover:bg-cyan/10 hover:text-cyan active:scale-[0.92]" type="button" aria-label="Copiar comando"></button>
                 </div>
                 <pre class="m-0 overflow-x-auto bg-transparent p-4"><code class="bg-transparent p-0 text-[0.85rem] leading-[1.5] text-fg">TELEGRAM_BOT_TOKEN=...    # de @BotFather
-ZEN_API_KEY=...           # de opencode.ai
+ZEN_API_KEY=...           # de opencode.ai/auth
 WEBHOOK_SECRET=...        # openssl rand -hex 32
-BLOB_READ_WRITE_TOKEN=... # del Blob store
-ADMIN_IDS=...             # tu ID de Telegram</code></pre>
+BLOB_READ_WRITE_TOKEN=... # del paso 3 (Blob store)
+ADMIN_IDS=                # vacío = modo setup</code></pre>
               </div>
             </li>
             <li class="rounded-[16px] border border-line bg-card p-6">
@@ -240,8 +253,8 @@ npm run seed-knowledge</code></pre>
               </div>
             </li>
             <li class="rounded-[16px] border border-line bg-card p-6">
-              <h3 class="mb-2 text-[1.05rem]">Configurá el webhook</h3>
-              <p class="mb-3.5 text-[0.95rem] text-muted">Vinculá Telegram con tu instancia desplegada.</p>
+              <h3 class="mb-2 text-[1.05rem]">Vinculá el proyecto a Vercel</h3>
+              <p class="mb-3.5 text-[0.95rem] text-muted">Conectá esta carpeta con tu proyecto en Vercel.</p>
               <div class="code-block overflow-hidden rounded-xl border border-line bg-ink-soft">
                 <div class="flex items-center justify-between border-b border-line bg-white/[0.03] px-2.5 py-2">
                   <span class="dots inline-flex gap-[5px]" aria-hidden="true"
@@ -249,12 +262,28 @@ npm run seed-knowledge</code></pre>
                   >
                   <button class="copy-btn inline-flex cursor-pointer items-center justify-center rounded-md border-none bg-transparent p-1 text-muted transition-[color,background-color,transform] duration-150 hover:bg-cyan/10 hover:text-cyan active:scale-[0.92]" type="button" aria-label="Copiar comando"></button>
                 </div>
-                <pre class="m-0 overflow-x-auto bg-transparent p-4"><code class="bg-transparent p-0 text-[0.85rem] leading-[1.5] text-fg">npm run set-webhook -- https://tu-proyecto.vercel.app/api/webhook</code></pre>
+                <pre class="m-0 overflow-x-auto bg-transparent p-4"><code class="bg-transparent p-0 text-[0.85rem] leading-[1.5] text-fg">vercel link</code></pre>
+              </div>
+            </li>
+            <li class="rounded-[16px] border border-line bg-card p-6">
+              <h3 class="mb-2 text-[1.05rem]">Cargá las env vars en Vercel</h3>
+              <p class="mb-3.5 text-[0.95rem] text-muted">Tu <code class="rounded-md border border-line bg-ink-soft px-2 py-0.5 text-[0.9em] text-cyan">.env</code> local no se sube solo: cargá cada variable en producción.</p>
+              <div class="code-block overflow-hidden rounded-xl border border-line bg-ink-soft">
+                <div class="flex items-center justify-between border-b border-line bg-white/[0.03] px-2.5 py-2">
+                  <span class="dots inline-flex gap-[5px]" aria-hidden="true"
+                    ><i class="block h-[9px] w-[9px] rounded-full bg-[#ff5f57]"></i><i class="block h-[9px] w-[9px] rounded-full bg-[#febc2e]"></i><i class="block h-[9px] w-[9px] rounded-full bg-[#28c840]"></i></span
+                  >
+                  <button class="copy-btn inline-flex cursor-pointer items-center justify-center rounded-md border-none bg-transparent p-1 text-muted transition-[color,background-color,transform] duration-150 hover:bg-cyan/10 hover:text-cyan active:scale-[0.92]" type="button" aria-label="Copiar comando"></button>
+                </div>
+                <pre class="m-0 overflow-x-auto bg-transparent p-4"><code class="bg-transparent p-0 text-[0.85rem] leading-[1.5] text-fg">vercel env add TELEGRAM_BOT_TOKEN production
+vercel env add ZEN_API_KEY production
+vercel env add WEBHOOK_SECRET production
+vercel env add BLOB_READ_WRITE_TOKEN production</code></pre>
               </div>
             </li>
             <li class="rounded-[16px] border border-line bg-card p-6">
               <h3 class="mb-2 text-[1.05rem]">Deployá en Vercel</h3>
-              <p class="mb-3.5 text-[0.95rem] text-muted">Publicá tu instancia y empezá a atender consultas.</p>
+              <p class="mb-3.5 text-[0.95rem] text-muted">Publicá tu instancia. Anotá tu URL: <code class="rounded-md border border-line bg-ink-soft px-2 py-0.5 text-[0.9em] text-cyan">https://tu-proyecto.vercel.app</code></p>
               <div class="code-block overflow-hidden rounded-xl border border-line bg-ink-soft">
                 <div class="flex items-center justify-between border-b border-line bg-white/[0.03] px-2.5 py-2">
                   <span class="dots inline-flex gap-[5px]" aria-hidden="true"
@@ -264,6 +293,41 @@ npm run seed-knowledge</code></pre>
                 </div>
                 <pre class="m-0 overflow-x-auto bg-transparent p-4"><code class="bg-transparent p-0 text-[0.85rem] leading-[1.5] text-fg">vercel --prod</code></pre>
               </div>
+            </li>
+            <li class="rounded-[16px] border border-line bg-card p-6">
+              <h3 class="mb-2 text-[1.05rem]">Configurá el webhook</h3>
+              <p class="mb-3.5 text-[0.95rem] text-muted">Vinculá Telegram con tu instancia ya desplegada.</p>
+              <div class="code-block overflow-hidden rounded-xl border border-line bg-ink-soft">
+                <div class="flex items-center justify-between border-b border-line bg-white/[0.03] px-2.5 py-2">
+                  <span class="dots inline-flex gap-[5px]" aria-hidden="true"
+                    ><i class="block h-[9px] w-[9px] rounded-full bg-[#ff5f57]"></i><i class="block h-[9px] w-[9px] rounded-full bg-[#febc2e]"></i><i class="block h-[9px] w-[9px] rounded-full bg-[#28c840]"></i></span
+                  >
+                  <button class="copy-btn inline-flex cursor-pointer items-center justify-center rounded-md border-none bg-transparent p-1 text-muted transition-[color,background-color,transform] duration-150 hover:bg-cyan/10 hover:text-cyan active:scale-[0.92]" type="button" aria-label="Copiar comando"></button>
+                </div>
+                <pre class="m-0 overflow-x-auto bg-transparent p-4"><code class="bg-transparent p-0 text-[0.85rem] leading-[1.5] text-fg">source .env
+npm run set-webhook -- https://tu-proyecto.vercel.app/api/webhook</code></pre>
+              </div>
+            </li>
+            <li class="rounded-[16px] border border-line bg-card p-6">
+              <h3 class="mb-2 text-[1.05rem]">Obtené tu ADMIN_IDS</h3>
+              <p class="mb-3.5 text-[0.95rem] text-muted">Con <code class="rounded-md border border-line bg-ink-soft px-2 py-0.5 text-[0.9em] text-cyan">ADMIN_IDS</code> vacío, escribí <code class="rounded-md border border-line bg-ink-soft px-2 py-0.5 text-[0.9em] text-cyan">/start</code> en el bot y te responde con tu ID de Telegram.</p>
+              <div class="code-block overflow-hidden rounded-xl border border-line bg-ink-soft">
+                <div class="flex items-center justify-between border-b border-line bg-white/[0.03] px-2.5 py-2">
+                  <span class="dots inline-flex gap-[5px]" aria-hidden="true"
+                    ><i class="block h-[9px] w-[9px] rounded-full bg-[#ff5f57]"></i><i class="block h-[9px] w-[9px] rounded-full bg-[#febc2e]"></i><i class="block h-[9px] w-[9px] rounded-full bg-[#28c840]"></i></span
+                  >
+                  <button class="copy-btn inline-flex cursor-pointer items-center justify-center rounded-md border-none bg-transparent p-1 text-muted transition-[color,background-color,transform] duration-150 hover:bg-cyan/10 hover:text-cyan active:scale-[0.92]" type="button" aria-label="Copiar comando"></button>
+                </div>
+                <pre class="m-0 overflow-x-auto bg-transparent p-4"><code class="bg-transparent p-0 text-[0.85rem] leading-[1.5] text-fg"># en tu chat con el bot:
+/start
+# copiá el ID que te responde y agregalo en .env:
+ADMIN_IDS=123456789</code></pre>
+              </div>
+              <p class="mt-3.5 text-[0.9rem] text-muted">También cargá <code class="rounded-md border border-line bg-ink-soft px-2 py-0.5 text-[0.9em] text-cyan">vercel env add ADMIN_IDS production</code> y redeployá con <code class="rounded-md border border-line bg-ink-soft px-2 py-0.5 text-[0.9em] text-cyan">vercel --prod</code>.</p>
+            </li>
+            <li class="rounded-[16px] border border-line bg-card p-6">
+              <h3 class="mb-2 text-[1.05rem]">Verificá que responde</h3>
+              <p class="text-[0.95rem] text-muted">Escribile una consulta al bot. Debería responder “Un momento, estoy buscando esa información…” y luego la respuesta basada en tu conocimiento.</p>
             </li>
           </ol>
         </div>
@@ -310,7 +374,7 @@ npm run seed-knowledge</code></pre>
             <p class="mx-auto mb-8 max-w-[52ch] text-muted"
               >Descargá el código, seguí el instructivo y tené tu asistente atendiendo consultas en minutos.</p
             >
-            <a class="btn btn-primary" href="https://github.com/marcoszinga94/telegram-bot-atencion" target="_blank" rel="noopener">
+            <a class="btn btn-primary" href="https://github.com/tu-usuario/telegram-bot-atencion" target="_blank" rel="noopener">
               Ver repositorio en GitHub
             </a>
             <p class="mt-[18px]"
